@@ -83,6 +83,11 @@ for (var i = 0; i < elements.length; i++) {
 }
 document.getElementById("drawflow").addEventListener('dragover', (ev) => { allowDrop(ev) })
 document.getElementById("drawflow").addEventListener('drop', (ev) => { drop(ev) })
+document.getElementById("btn-export").addEventListener("click", () => Swal.fire({
+    title: 'Export',
+    html: '<pre><code>'+JSON.stringify(editor.export(), null,4)+'</code></pre>'
+}))
+document.getElementById("btn-clear").addEventListener("click", () => editor.clearModuleSelected())
 
 var mobile_item_selec = '';
 var mobile_last_move = null;
