@@ -97,7 +97,7 @@ header a {
   font-weight: bold;
 }
 
-.btn-export {
+.btn-import {
   float: right;
   position: absolute;
   top: 10px;
@@ -112,11 +112,26 @@ header a {
   z-index: 5;
 }
 
-.btn-clear {
+.btn-export {
   float: right;
   position: absolute;
   top: 10px;
   right: 85px;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #0e5ba3;
+  background: #4ea9ff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.btn-clear {
+  float: right;
+  position: absolute;
+  top: 10px;
+  right: 160px;
   color: white;
   font-weight: bold;
   border: 1px solid #96015b;

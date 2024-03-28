@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Drawflow | Simple Flow program libray</title>
+  <title>I forgot my project's name :(</title>
   <meta name="description"
     content="Simple library for flow programming. Drawflow allows you to create data flows easily and quickly.">
 </head>
@@ -22,12 +22,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='index.css') }}" />
   <script src="{{ url_for('static', path='index.js') }}" type="module"></script>
+  <script src="{{ url_for('static', path='drawflow utils/binders.js') }}" type="module"></script>
+  <script src="{{ url_for('static', path='drawflow utils/event_loggers.js') }}" type="module"></script>
 
 
   <header>
     <h2>I forgot my project's name :(</h2>
-    <div class="github-link"><a href="" target="_blank"><i class="fab fa-github fa-3x"></i></a></div>
+    <div class="github-link">
+      <a href="https://github.com/SosnoviyBor/GradWerk" target="_blank">
+        <i class="fab fa-github fa-3x"></i>
+      </a>
+    </div>
   </header>
   <div class="wrapper">
     <div class="col">
@@ -50,6 +58,7 @@
     </div>
     <div class="col-right">
       <div id="drawflow">
+        <div id="btn-import" class="btn-import">Import</div>
         <div id="btn-export" class="btn-export">Export</div>
         <div id="btn-clear" class="btn-clear">Clear</div>
       </div>
