@@ -1,6 +1,7 @@
-import Drawflow from "./drawflow/drawflow.js"
+import Drawflow from "./lib/drawflow/drawflow.js"
 
 import dataToImport from "./recources/sample_flowchart.json" with { type: 'json' }
+import { components } from "./utils/components.js"
 
 
 // start drawflow
@@ -122,8 +123,28 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
     pos_x = pos_x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)) - (editor.precanvas.getBoundingClientRect().x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)));
     pos_y = pos_y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
 
-
+    const component = components[name]
     switch (name) {
+        case "userinput":
+            editor.addNode(name, 0, 1, pos_x, pos_y, name, {}, component)
+            break
+            
+        case "useroutput":
+            editor.addNode(name, 1, 0, pos_x, pos_y, name, {}, component)
+            break
+            
+        case "frontend":
+            editor.addNode(name, 1, 1, pos_x, pos_y, name, {}, component)
+            break
+            
+        case "backend":
+            editor.addNode(name, 1, 1, pos_x, pos_y, name, {}, component)
+            break
+            
+        case "database":
+            editor.addNode(name, 1, 1, pos_x, pos_y, name, {}, component)
+            break
+            
         case 'facebook':
             var facebook = `
     <div>
@@ -257,6 +278,7 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
         </div>
         `;
             editor.addNode('dbclick', 1, 1, pos_x, pos_y, 'dbclick', { name: '' }, dbclick);
+            console.log("2")
             break;
 
         default:

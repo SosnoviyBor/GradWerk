@@ -292,6 +292,12 @@ header a {
   width: 250px;
 }
 
+.drawflow-node.frontend,
+.drawflow-node.backend,
+.drawflow-node.database {
+  width: 250px;
+}
+
 .drawflow-node.slack .title-box {
   border-radius: 4px;
 }
