@@ -1,4 +1,4 @@
-import * as handlers from "./event_handlers.js"
+import * as handlers from "./handlers.js"
 
 var elements = document.getElementsByClassName('drag-drawflow');
 for (var i = 0; i < elements.length; i++) {
@@ -15,3 +15,5 @@ document.getElementById("btn-export").addEventListener("click", () => handlers.e
 document.getElementById("btn-import").addEventListener("click", () => handlers.importJson())
 document.getElementById("import-input").addEventListener("change", () => handlers.readImportedJson())
 document.getElementById("btn-clear").addEventListener("click", () => handlers.clear())
+
+document.getElementById("start").addEventListener("click", () => handlers.requestSimulation())

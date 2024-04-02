@@ -50,7 +50,6 @@ export function readImportedJson() {
             alert("Uploaded file is not a valid JSON!")
             return
         }
-        editor.clear()
         editor.import(content)
     }
     reader.readAsText(jsonInput.files[0], "UTF-8")
@@ -104,4 +103,17 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
         default:
             console.log("Unexpected component is being added!")
     }
+}
+
+export function requestSimulation() {
+    fetch("/simulate", {
+        method: "POST",
+        body: JSON.stringify({
+            model: editor.export(),
+            simtime: document.getElementById("simtime").value
+        }),
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+    })
+            .then((response) => response.json())
+            .then((json) => console.log(json))
 }
