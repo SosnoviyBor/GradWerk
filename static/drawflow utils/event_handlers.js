@@ -35,6 +35,46 @@ export function drop(ev) {
     }
 }
 
+const jsonInput = document.getElementById("import-input")
+export function importJson() {
+    jsonInput.click()
+}
+
+export function readImportedJson() {
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+        var content
+        try {
+            content = JSON.parse(ev.target.result)
+        } catch (e) {
+            alert("Uploaded file is not a valid JSON!")
+            return
+        }
+        editor.clear()
+        editor.import(content)
+    }
+    reader.readAsText(jsonInput.files[0], "UTF-8")
+    jsonInput.value = ""
+}
+
+export function exportAsJson() {
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editor.export()));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "flowchart.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
+export function clear() {
+    if (confirm("Are you sure you want to clear your flowchart?")) {
+        editor.clearModuleSelected()
+        console.log("You do you, boss")
+    }
+}
+
+
 function addNodeToDrawFlow(name, pos_x, pos_y) {
     pos_x = pos_x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)) - (editor.precanvas.getBoundingClientRect().x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)))
     pos_y = pos_y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)))
