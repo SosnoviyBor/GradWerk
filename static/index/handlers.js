@@ -80,6 +80,10 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
 
     const component = components[name]
     switch (name) {
+        case "welcome":
+            editor.addNode(name, 0, 0, pos_x, pos_y, name, {}, component)
+            break
+
         case "userinput":
             editor.addNode(name, 0, 1, pos_x, pos_y, name, {}, component)
             break
@@ -98,6 +102,10 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
             
         case "database":
             editor.addNode(name, 5, 5, pos_x, pos_y, name, {}, component)
+            break
+        
+        case "comment":
+            editor.addNode(name, 0, 0, pos_x, pos_y, name, {}, component)
             break
 
         default:
