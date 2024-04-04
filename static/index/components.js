@@ -39,6 +39,7 @@ class CommonElements {
 }
 
 
+// TODO move descriptions to their separate component
 export const components = {
     
     "userinput": `
