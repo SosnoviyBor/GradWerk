@@ -16,10 +16,6 @@ class Model:
         print(f"There are {len(self.elements)} elements in the simulation")
         
         while self.tcurr < time:
-            # if this will be required
-            # here sould be implemented swap threshold feature
-            # otherwise, remove Element.swap_threshold
-            
             # searching nearest event
             self.tnext = maxsize
             event_id = 0

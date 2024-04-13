@@ -8,9 +8,8 @@ from ..utils.random_gens import *
 class Element:
     next_id = 0
     
-    def __init__(self, delay: float, worker_count: int, swap_threshold: int) -> None:
+    def __init__(self, delay: float, worker_count: int) -> None:
         self.worker_count = worker_count
-        self.swap_threshold = swap_threshold
         self.delay_mean = delay
         
         self.id = Element.next_id
