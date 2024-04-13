@@ -25,13 +25,14 @@ async def simulate(request: Request):
 def create_elements(model: list) -> list:
     # initialize elements
     elements = []
+    linking_dist = {}
     for key in model.keys():
         data = model[key]["data"]
         match model[key]["class"]:
             case "userinput":
                 if not has_connections(model[key], False): break
                 
-                element = Create(data["delay"], data["replica"])
+                element = Create(data["mean"], data["replica"])
                 element.name = data["name"]
                 element.distribution = parse_dist(data["dist"])
                 element.delay_deviation = data["deviation"]
@@ -43,11 +44,11 @@ def create_elements(model: list) -> list:
                 element.name = data["name"]
             
             
-            case "frontend", "backend", "database":
+            case "frontend" | "backend" | "database":
                 if (not has_connections(model[key], True)
-                    or not has_connections(model[key], False)): break
+                    and not has_connections(model[key], False)): break
                 
-                element = Process(data["delay"], data["replica"])
+                element = Process(data["mean"], data["replica"])
                 element.name = data["name"]
                 element.distribution = parse_dist(data["dist"])
                 element.delay_deviation = data["deviation"]
@@ -57,8 +58,14 @@ def create_elements(model: list) -> list:
             case _:
                 break
         elements.append(element)
+        linking_dist[key] = element
     
     # chain elements
+    for key in model.keys():
+        model_element = model[key]
+        element = linking_dist[key]
+        # TODO
+        # match model_element["data"]
     
     return elements
 
@@ -76,6 +83,6 @@ def has_connections(data: dict, is_input: bool) -> bool:
     
     connections = data[conn_type]
     for key in connections.keys():
-        if connections[key]:
+        if connections[key]["connections"]:
             return True
     return False

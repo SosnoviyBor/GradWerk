@@ -24,16 +24,14 @@ class CommonElements {
     
     static set_replica_count = `
         <p>Replica count</p>
-        <input type="number" df-replica value="1" min="1">
+        <input type="number" df-replica value="1" min="1" step="1   ">
         <br><br>
     `
     
     static set_order = `
         <p>Element order</p>
         <select df-order>
-            <option value="balanced">Balanced</option>
             <option value="top to bottom">Top to bottom</option>
-            <option value="round robin">Round robin</option>
             <option value="random">Random</option>
         </select>
         <br><br>
@@ -93,6 +91,7 @@ export const components = {
                 ${CommonElements.set_dist}
                 ${CommonElements.set_mean}
                 ${CommonElements.set_deviation}
+                ${CommonElements.set_replica_count}
             </div>
         </div>
     `,
