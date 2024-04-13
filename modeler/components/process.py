@@ -5,8 +5,8 @@ from ..utils import shortcuts
 
 
 class Process(Element):
-    def __init__(self, delay: float, worker_count: int, swap_threshold: int) -> None:
-        super().__init__(delay, worker_count, swap_threshold)
+    def __init__(self, delay: float, worker_count: int) -> None:
+        super().__init__(delay, worker_count)
         self.max_queue = maxsize
         self.mean_queue = .0
         self.wait_start = .0
