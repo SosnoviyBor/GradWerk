@@ -262,7 +262,7 @@ header a {
 .drawflow-node.frontend,
 .drawflow-node.backend,
 .drawflow-node.database {
-  width: 250px;
+  width: 200px;
 }
 
 .drawflow-node.slack .title-box {

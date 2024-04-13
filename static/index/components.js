@@ -13,25 +13,37 @@ class CommonElements {
 
     static set_first_val = `
         <p>Mean</p>
-        <input type="number" df-first-value placeholder="First value">
+        <input type="number" df-first-value>
         <br><br>
     `
 
     static set_second_val = `
         <p>Deviation</p>
-        <input type="number" df-second-value placeholder="Second value">
+        <input type="number" df-second-value>
         <br><br>
     `
+    
     static set_replica_count = `
         <p>Replica count</p>
-        <input type="number" df-name placeholder="Replica count" value="1" min="1">
+        <input type="number" df-name value="1" min="1">
+        <br><br>
+    `
+    
+    static set_order = `
+        <p>Element order</p>
+        <select df-order>
+            <option value="balanced">Balanced</option>
+            <option value="top to bottom">Top to bottom</option>
+            <option value="round robin">Round robin</option>
+            <option value="random">Random</option>
+        </select>
         <br><br>
     `
 
     static set_name(default_name) {
         return `
-            <p>Name your element</p>
-            <input type="text" df-name placeholder="Element name" value="${default_name}"><br><br>
+            <p>Name</p>
+            <input type="text" df-name value="${default_name}"><br><br>
         `
     }
 }
@@ -89,6 +101,7 @@ export const components = {
                 ${CommonElements.set_dist}
                 ${CommonElements.set_first_val}
                 ${CommonElements.set_second_val}
+                ${CommonElements.set_order}
                 ${CommonElements.set_replica_count}
             </div>
         </div>
@@ -102,6 +115,7 @@ export const components = {
                 ${CommonElements.set_dist}
                 ${CommonElements.set_first_val}
                 ${CommonElements.set_second_val}
+                ${CommonElements.set_order}
                 ${CommonElements.set_replica_count}
             </div>
         </div>
@@ -115,6 +129,7 @@ export const components = {
                 ${CommonElements.set_dist}
                 ${CommonElements.set_first_val}
                 ${CommonElements.set_second_val}
+                ${CommonElements.set_order}
                 ${CommonElements.set_replica_count}
             </div>
         </div>
