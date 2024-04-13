@@ -2,7 +2,6 @@ class CommonElements {
     static set_dist = `
         <p>Distribution</p>
         <select df-dist>
-            <option value="constant">Constant</option>
             <option value="exponential">Exponential</option>
             <option value="normal">Normal</option>
             <option value="erlang">Erlang</option>
@@ -11,21 +10,21 @@ class CommonElements {
         <br><br>
     `
 
-    static set_first_val = `
+    static set_mean = `
         <p>Mean</p>
-        <input type="number" df-first-value>
+        <input type="number" df-mean>
         <br><br>
     `
 
-    static set_second_val = `
+    static set_deviation = `
         <p>Deviation</p>
-        <input type="number" df-second-value>
+        <input type="number" df-deviation>
         <br><br>
     `
     
     static set_replica_count = `
         <p>Replica count</p>
-        <input type="number" df-name value="1" min="1">
+        <input type="number" df-replica value="1" min="1">
         <br><br>
     `
     
@@ -37,6 +36,12 @@ class CommonElements {
             <option value="round robin">Round robin</option>
             <option value="random">Random</option>
         </select>
+        <br><br>
+    `
+    
+    static set_queue_size = `
+        <p>Queue size</p>
+        <input type="number" step="1" df-queuesize>
         <br><br>
     `
 
@@ -58,7 +63,6 @@ export const components = {
                 <p><b>Mean</b></p>
                 <p>Depending on selected distribution it will set:</p>
                 <ul>
-                    <li>Constant: const value</li>
                     <li>Exponential, normal, erlang: mean</li>
                     <li>Uniform: min</li>
                 </ul>
@@ -84,6 +88,12 @@ export const components = {
     "userinput": `
         <div>
             <div class="title-box"><i class="fa-solid fa-arrow-right-to-bracket"></i> User input</div>
+            <div class="box">
+                ${CommonElements.set_name("Frontend")}
+                ${CommonElements.set_dist}
+                ${CommonElements.set_mean}
+                ${CommonElements.set_deviation}
+            </div>
         </div>
     `,
 
@@ -99,8 +109,9 @@ export const components = {
             <div class="box">
                 ${CommonElements.set_name("Frontend")}
                 ${CommonElements.set_dist}
-                ${CommonElements.set_first_val}
-                ${CommonElements.set_second_val}
+                ${CommonElements.set_mean}
+                ${CommonElements.set_deviation}
+                ${CommonElements.set_queue_size}
                 ${CommonElements.set_order}
                 ${CommonElements.set_replica_count}
             </div>
@@ -113,8 +124,9 @@ export const components = {
             <div class="box">
                 ${CommonElements.set_name("Backend")}
                 ${CommonElements.set_dist}
-                ${CommonElements.set_first_val}
-                ${CommonElements.set_second_val}
+                ${CommonElements.set_mean}
+                ${CommonElements.set_deviation}
+                ${CommonElements.set_queue_size}
                 ${CommonElements.set_order}
                 ${CommonElements.set_replica_count}
             </div>
@@ -127,8 +139,9 @@ export const components = {
             <div class="box">
                 ${CommonElements.set_name("Database")}
                 ${CommonElements.set_dist}
-                ${CommonElements.set_first_val}
-                ${CommonElements.set_second_val}
+                ${CommonElements.set_mean}
+                ${CommonElements.set_deviation}
+                ${CommonElements.set_queue_size}
                 ${CommonElements.set_order}
                 ${CommonElements.set_replica_count}
             </div>
