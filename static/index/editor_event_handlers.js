@@ -6,6 +6,7 @@ import { editor } from "../index.js"
 editor.on('nodeCreated',        (id) => { console.log("Node created " + id) })
 editor.on('nodeRemoved',        (id) => { console.log("Node removed " + id) })
 editor.on('nodeSelected',       (id) => { console.log("Node selected " + id) })
+editor.on('nodeDataChanged',    (id) => {console.log("Updated data in node  "+ id)})
 editor.on('moduleCreated',      (name) => { console.log("Module Created " + name) })
 editor.on('moduleChanged',      (name) => { console.log("Module Changed " + name) })
 editor.on('nodeMoved',          (id) => { console.log("Node moved " + id) })
@@ -26,12 +27,15 @@ editor.on('connectionRemoved', (connection) => {
 /* OTHER */
 
 editor.on("nodeCreated", function initialize(id) {
-    const box_elements = document.getElementById(`node-${id}`).getElementsByClassName("box")[0].children
-    const event = new Event("update")
+    const box = document.getElementById(`node-${id}`).getElementsByClassName("box")[0]
+    if (!box.hasChildNodes()) { return }
 
-    for (let i = 0; i < box_elements.length; i++) {
-        if (["input", "option", "textarea"].includes(box_elements[i].tagName.toLowerCase())) {
-            box_elements[i].dispatchEvent(event)
+    const event = new Event("input", { bubbles: true })
+    const updateable_tags = ["input", "select", "textarea"]
+
+    for (let i = 0; i < box.children.length; i++) {
+        if (updateable_tags.includes(box.children[i].tagName.toLowerCase())) {
+            box.children[i].dispatchEvent(event)
         }
     }
 })
