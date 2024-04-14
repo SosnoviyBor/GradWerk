@@ -99,6 +99,9 @@ export const components = {
     "useroutput": `
         <div>
             <div class="title-box"><i class="fa-solid fa-arrow-right-from-bracket"></i> User output</div>
+            <div class="box">
+                ${CommonElements.set_name("Dispose")}
+            </div>
         </div>
     `,
 

@@ -24,8 +24,7 @@ async def simulate(request: Request):
 
 def create_elements(model: list) -> list:
     # initialize elements
-    elements = []
-    linking_dist = {}
+    elements_by_id = {}
     for key in model.keys():
         data = model[key]["data"]
         match model[key]["class"]:
@@ -57,17 +56,45 @@ def create_elements(model: list) -> list:
             
             case _:
                 break
-        elements.append(element)
-        linking_dist[key] = element
+        elements_by_id[key] = element
     
-    # chain elements
-    for key in model.keys():
-        model_element = model[key]
-        element = linking_dist[key]
-        # TODO
-        # match model_element["data"]
+    """ chain elements
+    model {
+        id {
+            outputs {
+                output_id {
+                    connections [
+                        node: int   # element id
+                        output: str # in which input of element it goes
+                    ]
+                }
+            }
+        }
+    }
+    """
+    for element_id in model.keys():
+        element_info = model[element_id]
+        element_obj = elements_by_id[element_id]
+        
+        match element_info["data"]["order"].lower():
+            case "top to bottom":
+                q = PriorityQueue()
+                # its a mess, i know
+                outputs = element_info["outputs"]
+                for output_id in len(outputs):
+                    connections = element_info["outputs"][output_id]["connections"]
+                    for connection in connections:
+                        q.put((output_id, elements_by_id[connection["node"]]))
+                        
+                element_obj.set_next_element_queue(q)
+            
+            case "random":
+                pass
+            
+            case _:
+                raise(f"Recieved unknown element order {element_info['data']['order']}!")
     
-    return elements
+    return [elements_by_id[key] for key in elements_by_id.keys()]
 
 def parse_dist(dist_name: str) -> int:
     match dist_name:
@@ -75,7 +102,7 @@ def parse_dist(dist_name: str) -> int:
         case "normal": return DistributionType.normal
         case "erlang": return DistributionType.erlang
         case "uniform": return DistributionType.uniform
-        case _: raise(f"Recieved unknow distribution type {dist_name}!")
+        case _: raise(f"Recieved unknown distribution type {dist_name}!")
 
 def has_connections(data: dict, is_input: bool) -> bool:
     if is_input: conn_type = "inputs"
