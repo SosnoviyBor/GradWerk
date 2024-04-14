@@ -1,5 +1,8 @@
 import { editor } from "../index.js"
 
+
+/* LOGGERS */
+
 editor.on('nodeCreated',        (id) => { console.log("Node created " + id) })
 editor.on('nodeRemoved',        (id) => { console.log("Node removed " + id) })
 editor.on('nodeSelected',       (id) => { console.log("Node selected " + id) })
@@ -17,9 +20,18 @@ editor.on('connectionRemoved', (connection) => {
     console.log('Connection removed')
     console.log(connection)
 })
-// editor.on('mouseMove', function(position) {
-//   console.log('Position mouse x:' + position.x + ' y:'+ position.y)
-// })
-// editor.on('translate', function (position) {
-//     console.log('Translate x:' + position.x + ' y:' + position.y)
-// })
+
+
+
+/* OTHER */
+
+editor.on("nodeCreated", function initialize(id) {
+    const box_elements = document.getElementById(`node-${id}`).getElementsByClassName("box")[0].children
+    const event = new Event("update")
+
+    for (let i = 0; i < box_elements.length; i++) {
+        if (["input", "option", "textarea"].includes(box_elements[i].tagName.toLowerCase())) {
+            box_elements[i].dispatchEvent(event)
+        }
+    }
+})

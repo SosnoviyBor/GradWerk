@@ -1,4 +1,4 @@
-import * as handlers from "./handlers.js"
+import * as handlers from "./page_event_handlers.jshandlers.js"
 
 var elements = document.getElementsByClassName('drag-drawflow');
 for (var i = 0; i < elements.length; i++) {
