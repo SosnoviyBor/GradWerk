@@ -1,7 +1,7 @@
 class NextElementType:
     single = 1
     queue = 2
-    typed = 3
+    random = 3
 
 
 class DistributionType:

@@ -64,8 +64,10 @@ def create_elements(model: list) -> list:
             outputs {
                 output_id {
                     connections [
-                        node: int   # element id
-                        output: str # in which input of element it goes
+                        [
+                            node: int   # element id
+                            output: str # in which input of element it goes
+                        ]
                     ]
                 }
             }

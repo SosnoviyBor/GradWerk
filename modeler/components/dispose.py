@@ -5,7 +5,7 @@ from ..utils import shortcuts
 
 class Dispose(Element):
     def __init__(self) -> None:
-        super().__init__(0, 0, maxsize)
+        super().__init__(0, 0)
         self.put_tnext(maxsize)
     
     

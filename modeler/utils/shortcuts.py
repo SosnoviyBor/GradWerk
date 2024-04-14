@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from .consts import NextElementType
 from ..components.element import Element
 
@@ -16,6 +14,6 @@ def out_act(e: Element) -> None:
             )
             # will it work tho?
             
-        case NextElementType.typed:
+        case NextElementType.random:
             # TODO implement
             pass
