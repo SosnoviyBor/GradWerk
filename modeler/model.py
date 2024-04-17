@@ -1,8 +1,8 @@
 from typing import List
 from sys import maxsize
 
-from .components.element import Element
-from .components.process import Process
+from modeler.components.element import Element
+from modeler.components.process import Process
 
 class Model:
     def __init__(self, elements: List[Element]) -> None:
