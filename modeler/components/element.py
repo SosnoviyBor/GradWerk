@@ -1,8 +1,8 @@
 from queue import PriorityQueue
 from sys import maxsize
 
-from ..utils.consts import DistributionType, NextElementType
-from ..utils.random_gens import *
+from modeler.utils.consts import DistributionType, NextElementType
+from modeler.utils.random_gens import *
 
 
 class Element:
@@ -30,7 +30,8 @@ class Element:
         
         self.next_element: Element
         self.next_element_queue: PriorityQueue
-        self.next_element_typed_array: dict
+        self.next_element_array: list
+        # self.next_element_typed_array: dict
     
     
     @staticmethod
