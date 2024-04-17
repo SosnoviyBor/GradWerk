@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 
-from utils.element_parser import create_elements
+from routers.utils.element_parser import create_elements
 from modeler.model import Model
 
 
@@ -11,9 +11,10 @@ router = APIRouter()
 async def simulate(request: Request):
     data = await request.json()
     model = data["model"]["drawflow"]["Home"]["data"]
-    simtime = data["simtime"]
+    simtime = float(data["simtime"])
     
     elements = create_elements(model)
-    print(elements)
+    
+    Model(elements).simulate(simtime, True)
     
     return model

@@ -36,6 +36,12 @@ class CommonElements {
         </select>
         <br><br>
     `
+
+    static single_io = `
+    <select df-order hidden disabled>
+        <option value="random">Random</option>
+    </select>
+`
     
     static set_queue_size = `
         <p>Queue size</p>
@@ -87,11 +93,13 @@ export const components = {
         <div>
             <div class="title-box"><i class="fa-solid fa-arrow-right-to-bracket"></i> User input</div>
             <div class="box">
-                ${CommonElements.set_name("Frontend")}
+                ${CommonElements.set_name("User input")}
                 ${CommonElements.set_dist}
                 ${CommonElements.set_mean}
                 ${CommonElements.set_deviation}
                 ${CommonElements.set_replica_count}
+
+                ${CommonElements.single_io}
             </div>
         </div>
     `,

@@ -16,10 +16,10 @@ def create_elements(model: list) -> List[Element]:
             case "userinput":
                 if not _has_connections(model[key], False): break
                 
-                element = Create(data["mean"], data["replica"])
+                element = Create(float(data["mean"]), int(data["replica"]))
                 element.name = data["name"]
                 element.distribution = _parse_dist(data["dist"])
-                element.delay_deviation = data["deviation"]
+                element.delay_deviation = float(data["deviation"])
             
             
             case "useroutput":
@@ -33,11 +33,11 @@ def create_elements(model: list) -> List[Element]:
                 if (not _has_connections(model[key], True)
                     and not _has_connections(model[key], False)): break
                 
-                element = Process(data["mean"], data["replica"])
+                element = Process(float(data["mean"]), int(data["replica"]))
                 element.name = data["name"]
                 element.distribution = _parse_dist(data["dist"])
-                element.delay_deviation = data["deviation"]
-                element.max_queue = data["queuesize"]
+                element.delay_deviation = float(data["deviation"])
+                element.max_queue = int(data["queuesize"])
             
             
             case _:
@@ -64,12 +64,14 @@ def create_elements(model: list) -> List[Element]:
         element_info = model[element_id]
         element_obj = elements_by_id[element_id]
         
+        if isinstance(element_obj, Dispose): continue
+        
         match element_info["data"]["order"].lower():
             case "top to bottom":
                 element_obj.set_next_element_queue(_parse_next_element(PriorityQueue(), element_info, elements_by_id))
             
             case "random":
-                element_obj.set_next_element_array(_parse_next_element(list(), element_info, elements_by_id))
+                element_obj.set_next_element_random(_parse_next_element(list(), element_info, elements_by_id))
             
             case _:
                 raise(f"Recieved unknown element order {element_info['data']['order']}!")
@@ -98,8 +100,8 @@ def _parse_next_element(collection:     list | PriorityQueue,
                         element_info:   dict,
                         elements_by_id: dict) -> list | PriorityQueue:
     outputs = element_info["outputs"]
-    for output_id in len(outputs):
-        connections = element_info["outputs"][output_id]["connections"]
+    for output_id in range(1, len(outputs)+1):
+        connections = element_info["outputs"][f"output_{output_id}"]["connections"]
         for connection in connections:
             if isinstance(collection, list):
                 collection.append(elements_by_id[connection["node"]])

@@ -67,6 +67,11 @@ class Element:
         self.next_element_queue = next_element_queue
     
     
+    def set_next_element_random(self, next_element_array: list) -> None:
+        self.next_element_type = NextElementType.random
+        self.next_element_array = next_element_array
+    
+    
     def set_next_element_typed_array(self, next_element_typed_array: dict) -> None:
         self.next_element_type = NextElementType.queue
         self.next_element_typed_array = next_element_typed_array

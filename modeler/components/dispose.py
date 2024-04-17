@@ -1,7 +1,6 @@
 from sys import maxsize
 
 from modeler.components.element import Element
-from modeler.utils import shortcuts
 
 class Dispose(Element):
     def __init__(self) -> None:

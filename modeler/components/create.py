@@ -5,7 +5,7 @@ from modeler.utils import shortcuts
 
 class Create(Element):
     def __init__(self, delay: float, worker_count: int) -> None:
-        super().__init__(delay, worker_count, maxsize)
+        super().__init__(delay, worker_count)
         self.put_tnext(.0)
     
     
