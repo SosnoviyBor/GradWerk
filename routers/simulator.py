@@ -14,7 +14,6 @@ async def simulate(request: Request):
     simtime = float(data["simtime"])
     
     elements = create_elements(model)
+    results = Model(elements).simulate(simtime, False)
     
-    Model(elements).simulate(simtime, True)
-    
-    return model
+    return results
