@@ -101,7 +101,6 @@ class Model:
                 pass
                 
             if isinstance(element, Process):
-                element_result["quantity"] = element.quantity
                 element_result["failures"] = element.failure
                 element_result["mean_queue_length"] = element.mean_queue / self.tcurr
                 element_result["failure_probability"] = element.failure / (element.failure + element.quantity)

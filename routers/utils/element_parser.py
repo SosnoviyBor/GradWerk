@@ -8,6 +8,22 @@ from modeler.components.dispose import Dispose
 from modeler.utils.consts import DistributionType
 
 def create_elements(model: list) -> List[Element]:
+    """
+    model {
+        id {
+            outputs {
+                output_id {
+                    connections [
+                        [
+                            node: int   # element id
+                            output: str # in which input of element it goes
+                        ]
+                    ]
+                }
+            }
+        }
+    }
+    """
     # initialize elements
     elements_by_id = {}
     for key in model.keys():
@@ -44,22 +60,7 @@ def create_elements(model: list) -> List[Element]:
                 break
         elements_by_id[key] = element
     
-    """ chain elements
-    model {
-        id {
-            outputs {
-                output_id {
-                    connections [
-                        [
-                            node: int   # element id
-                            output: str # in which input of element it goes
-                        ]
-                    ]
-                }
-            }
-        }
-    }
-    """
+    # chain elements
     for element_id in model.keys():
         element_info = model[element_id]
         element_obj = elements_by_id[element_id]
@@ -100,14 +101,15 @@ def _parse_next_element(collection:     list | PriorityQueue,
                         element_info:   dict,
                         elements_by_id: dict) -> list | PriorityQueue:
     outputs = element_info["outputs"]
-    for output_id in range(1, len(outputs)+1):
-        connections = element_info["outputs"][f"output_{output_id}"]["connections"]
+    for output_id in range(len(outputs)):
+        connections = element_info["outputs"][f"output_{output_id+1}"]["connections"]
         for connection in connections:
             if isinstance(collection, list):
                 collection.append(elements_by_id[connection["node"]])
                 
             elif isinstance(collection, PriorityQueue):
-                collection.put((output_id, elements_by_id[connection["node"]]))
+                pair = (output_id, elements_by_id[connection["node"]])
+                collection.put(pair)
                 
             else:
                 raise(f"Recieved unknown collection type: {type(collection)}")
