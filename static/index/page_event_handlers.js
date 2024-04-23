@@ -114,10 +114,12 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
 }
 
 export function requestSimulation() {
+    const model = editor.export()
+    console.log(model)
     fetch("/simulate", {
         method: "POST",
         body: JSON.stringify({
-            model: editor.export(),
+            model: model,
             simtime: document.getElementById("simtime").value
         }),
         headers: { "Content-type": "application/json; charset=UTF-8" }
