@@ -26,6 +26,7 @@ editor.on('connectionRemoved', (connection) => {
 
 /* OTHER */
 
+// fix for nodes not setting its data if input values were prewritten
 editor.on("nodeCreated", function initialize(id) {
     const box = document.getElementById(`node-${id}`).getElementsByClassName("box")[0]
     if (!box.hasChildNodes()) { return }

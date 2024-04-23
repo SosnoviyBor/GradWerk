@@ -7,3 +7,5 @@ export const editor = new Drawflow(document.getElementById("drawflow"))
 editor.reroute = true
 editor.start()
 editor.import(base_flowchart)
+
+// TODO set page zoom to 80% on page load
