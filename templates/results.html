@@ -1,0 +1,25 @@
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation results</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='recources/favicon.ico') }}">
+</head>
+<body>
+    
+</body>
+</html> -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Chart.js example</title>
+  </head>
+  <body>
+    <!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
+    <div style="width: 800px;"><canvas id="results"></canvas></div>
+
+    <!-- <script type="module" src="dimensions.js"></script> -->
+    <script type="module" src="{{ url_for('static', path='results.js') }}"></script>
+  </body>
+</html>
