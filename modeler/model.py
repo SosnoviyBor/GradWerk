@@ -25,7 +25,7 @@ class Model:
                 if element.get_tnext() < self.tnext:
                     self.tnext = element.get_tnext()
                     event_id = element.id
-            
+
             # print output maybe?
             if do_output:
                 print(("\n"
@@ -71,6 +71,25 @@ class Model:
     
     
     def collect_data(self) -> list:
+        """
+        results [{
+            data {
+                id: int,
+                name: str,
+                !mean: float,
+                !deviation: float,
+                !worker_count: int,
+                !distribution: int,
+                !max_queue: int
+            },
+            result {
+                quantity: int,
+                !failures: int,
+                !mean_queue_length: float,
+                !failure_probability: float
+            }]
+        }
+        """
         model_data = []
         for element in self.elements:
             element_data = {

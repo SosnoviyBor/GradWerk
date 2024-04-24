@@ -7,7 +7,7 @@ from modeler.components.process import Process
 from modeler.components.dispose import Dispose
 from modeler.utils.consts import DistributionType
 
-def create_elements(model: list) -> List[Element]:
+def create_elements(model: dict) -> List[Element]:
     """
     model {
         (element)id {
@@ -24,6 +24,8 @@ def create_elements(model: list) -> List[Element]:
         }
     }
     """
+    # reset element id count
+    Element.next_id = 0
     # initialize elements
     elements_by_id = {}
     for element_id in model.keys():
