@@ -125,5 +125,6 @@ export function requestSimulation() {
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
             .then((response) => response.json())
+            // TODO redirect to results page with recieved response
             .then((json) => console.log(json))
 }
