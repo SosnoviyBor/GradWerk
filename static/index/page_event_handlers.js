@@ -124,7 +124,10 @@ export function requestSimulation() {
         }),
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
-            .then((response) => response.json())
-            // TODO redirect to results page with recieved response
-            .then((json) => console.log(json))
+            .then((response) => response.text())
+            .then((text) => {
+                const results_tab = window.open("/newpath", "_blank")
+                results_tab.document.write(text)
+                results_tab.focus()
+            })
 }
