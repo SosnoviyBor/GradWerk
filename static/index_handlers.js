@@ -1,4 +1,4 @@
-import { editor } from "./index.js";
+import { editor, default_flowchart } from "./index.js";
 import { components } from "./index_element_components.js"
 
 var mobile_item_selec = ''
@@ -143,5 +143,12 @@ export function init_node_data(id) {
         if (updateable_tags.includes(box.children[i].tagName.toLowerCase())) {
             box.children[i].dispatchEvent(event)
         }
+    }
+}
+
+export function check_unsaved_changes(ev) {
+    if (default_flowchart !== editor.export()) {
+        ev.preventDefault();
+        ev.returnValue = '';
     }
 }

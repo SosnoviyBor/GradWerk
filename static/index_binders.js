@@ -23,6 +23,12 @@ document.getElementById("start").addEventListener("click", () => handlers.reques
 
 
 
+/* window binders */
+
+window.addEventListener('beforeunload', (ev) => { handlers.check_unsaved_changes(ev) });
+
+
+
 /* editor binders */
 
 editor.on('nodeCreated',        (id) => { console.log("Node created " + id) })

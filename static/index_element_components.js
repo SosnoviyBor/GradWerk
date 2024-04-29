@@ -37,7 +37,7 @@ class CommonElements {
         <br><br>
     `
 
-    static single_io = `
+    static set_order_for_single_io = `
     <select df-order hidden disabled>
         <option value="random">Random</option>
     </select>
@@ -99,7 +99,7 @@ export const components = {
                 ${CommonElements.set_deviation}
                 ${CommonElements.set_replica_count}
 
-                ${CommonElements.single_io}
+                ${CommonElements.set_order_for_single_io}
             </div>
         </div>
     `,
