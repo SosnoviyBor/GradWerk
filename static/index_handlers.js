@@ -1,5 +1,5 @@
-import { editor } from "../index.js";
-import { components } from "./components.js"
+import { editor } from "./index.js";
+import { components } from "./index_element_components.js"
 
 var mobile_item_selec = ''
 var mobile_last_move = null
@@ -130,4 +130,18 @@ export function requestSimulation() {
                 results_tab.document.write(text)
                 results_tab.focus()
             })
+}
+
+export function init_node_data(id) {
+    const box = document.getElementById(`node-${id}`).getElementsByClassName("box")[0]
+    if (!box.hasChildNodes()) { return }
+
+    const event = new Event("input", { bubbles: true })
+    const updateable_tags = ["input", "select", "textarea"]
+
+    for (let i = 0; i < box.children.length; i++) {
+        if (updateable_tags.includes(box.children[i].tagName.toLowerCase())) {
+            box.children[i].dispatchEvent(event)
+        }
+    }
 }
