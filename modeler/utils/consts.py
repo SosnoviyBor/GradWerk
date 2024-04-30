@@ -1,11 +1,11 @@
 class NextElementType:
-    single = 1
-    queue = 2
-    random = 3
+    single = "single"
+    queue = "top to bottom"
+    random = "random"
 
 
 class DistributionType:
-    exponential = 1
-    normal = 2
-    uniform = 3
-    erlang = 4
+    exponential = "exponential"
+    normal = "normal"
+    uniform = "uniform"
+    erlang = "erlang"

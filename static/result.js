@@ -1,27 +1,37 @@
 (async function () {
-    const data = [
-        { year: 2010, count: 10 },
-        { year: 2011, count: 20 },
-        { year: 2012, count: 15 },
-        { year: 2013, count: 25 },
-        { year: 2014, count: 22 },
-        { year: 2015, count: 30 },
-        { year: 2016, count: 28 },
-    ];
-
+    const data = parse_data("failure_probability")
     new Chart(
         document.getElementById('chart'),
         {
             type: 'bar',
             data: {
-                labels: data.map(row => row.year),
+                labels: data.map(row => row.name),
                 datasets: [
                     {
-                        label: 'Acquisitions by year',
-                        data: data.map(row => row.count)
+                        label: 'Failure probabilites per element',
+                        data: data.map(row => row.param)
                     }
                 ]
             }
         }
     );
 })();
+
+function parse_data(param) {
+    const data = []
+
+    Array.from(document.getElementsByClassName("element")).forEach(element => {
+        if (element.getElementsByClassName(`result-${param}`).length > 0) {
+            data.push({
+                name: element.getElementsByClassName("element-name")[0].innerHTML,
+                // its retarted
+                // and it will eventually break
+                // but if works
+                // so fuck me
+                param: element.getElementsByClassName(`result-${param}`)[0].innerHTML.split(": ")[1]
+            })
+        }
+    });
+
+    return data
+}
