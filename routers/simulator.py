@@ -19,6 +19,4 @@ async def simulate(request: Request):
     elements = create_elements(model)
     results = Model(elements).simulate(simtime, False)
     
-    return templates.TemplateResponse(
-        request=request, name="results.html", context={ "results": results }
-    )
+    return results
