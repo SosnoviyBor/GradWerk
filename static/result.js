@@ -1,6 +1,3 @@
-import { Chart } from "./lib/chart.js/auto/auto.js"
-console.log("OPENED")
-
 (async function () {
     const data = [
         { year: 2010, count: 10 },

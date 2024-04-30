@@ -1,5 +1,6 @@
 import { editor, default_flowchart } from "./index.js";
 import { components } from "./index_element_components.js"
+import * as utils from "./utils.js"
 
 var mobile_item_selec = ''
 var mobile_last_move = null
@@ -125,25 +126,7 @@ export function requestSimulation() {
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
             .then((response) => response.json())
-            .then((json) => {
-                const inp = document.createElement("input")
-                inp.id = "result_middleman"
-                inp.name = "result"
-                inp.type = "hidden"
-                inp.value = JSON.stringify(json)
-
-                const form = document.createElement("form")
-                form.action = "/result"
-                form.method = "post"
-                form.target = "_blank"
-                form.encoding = "UTF-8"
-                form.hidden = true
-                form.appendChild(inp)
-
-                document.getElementsByClassName("wrapper")[0].appendChild(form)
-                form.submit()
-                form.remove()
-            })
+            .then((json) => utils.post_to_new_tab(json, "/result"))
 }
 
 export function init_node_data(id) {

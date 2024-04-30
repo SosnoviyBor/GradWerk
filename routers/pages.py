@@ -19,7 +19,6 @@ async def index(request: Request):
 @router.post("/result")
 async def result(request: Request):
     data = decode(await request.body())
-    print(data)
     
     return templates.TemplateResponse(
         request=request, name="result.html", context={ "result": data }

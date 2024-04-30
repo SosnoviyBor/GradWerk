@@ -1,5 +1,3 @@
-import Drawflow from "./lib/drawflow/drawflow.js"
-
 import base_flowchart from "./recources/basictest.json" with { type: 'json' }
 
 // start drawflow
