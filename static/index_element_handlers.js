@@ -1,5 +1,5 @@
-import { editor, default_flowchart } from "./index.js";
-import { components } from "./index_element_components.js"
+import { editor } from "./index.js";
+import { components } from "./index_components.js"
 import * as utils from "./utils.js"
 
 var mobile_item_selec = ''
@@ -70,7 +70,6 @@ export function exportAsJson() {
 export function clear() {
     if (confirm("Are you sure you want to clear your flowchart?")) {
         editor.clearModuleSelected()
-        console.log("You do you, boss")
     }
 }
 
@@ -127,25 +126,4 @@ export function requestSimulation() {
     })
             .then((response) => response.json())
             .then((json) => utils.post_to_new_tab(json, "/result"))
-}
-
-export function init_node_data(id) {
-    const box = document.getElementById(`node-${id}`).getElementsByClassName("box")[0]
-    if (!box.hasChildNodes()) { return }
-
-    const event = new Event("input", { bubbles: true })
-    const updateable_tags = ["input", "select", "textarea"]
-
-    for (let i = 0; i < box.children.length; i++) {
-        if (updateable_tags.includes(box.children[i].tagName.toLowerCase())) {
-            box.children[i].dispatchEvent(event)
-        }
-    }
-}
-
-export function check_unsaved_changes(ev) {
-    if (default_flowchart !== editor.export()) {
-        ev.preventDefault();
-        ev.returnValue = '';
-    }
 }
