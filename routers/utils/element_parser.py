@@ -9,6 +9,8 @@ from modeler.utils.consts import DistributionType
 
 def create_elements(model: dict) -> List[Element]:
     """
+    Parse request data into ready-to-simulate list of element objects
+    
     model {
         (element)id {
             outputs {
@@ -26,11 +28,13 @@ def create_elements(model: dict) -> List[Element]:
     """
     # reset element id count
     Element.next_id = 0
-    # initialize elements
+    # dict for logical linking of input element data and newly created element objects
     elements_by_id = {}
+    # initialize elements
     for element_id in model.keys():
         if not _is_valid_element(model[element_id]): continue
         data = model[element_id]["data"]
+        # create element based on its class
         match model[element_id]["class"]:
             case "userinput":
                 element = Create(float(data["mean"]), int(data["replica"]))
@@ -51,15 +55,18 @@ def create_elements(model: dict) -> List[Element]:
             
             case _:
                 raise(f"Recieved unknown element class: {model[element_id]['class']}")
-
         elements_by_id[element_id] = element
     
-    # chain elements
+    # chain elements together
+    # from output to input
     for element_id in model.keys():
         if not _is_valid_element(model[element_id]): continue
+        # info on current element thats being iterated
         element_info = model[element_id]
+        # current element itself
         element_obj = elements_by_id[element_id]
         
+        # check if element is supposed to have outputs
         if isinstance(element_obj, Dispose): continue
         
         match element_info["data"]["order"].lower():
@@ -77,6 +84,7 @@ def create_elements(model: dict) -> List[Element]:
     return [elements_by_id[key] for key in elements_by_id.keys()]
 
 def _has_connections(element: dict, is_input: bool) -> bool:
+    """Check for having ANY connections from certain side"""
     connections = element["inputs" if is_input else "outputs"]
     for key in connections.keys():
         if connections[key]["connections"]:
@@ -84,12 +92,14 @@ def _has_connections(element: dict, is_input: bool) -> bool:
     return False
 
 def _is_valid_element(element: dict) -> bool:
+    """Shortcut for _hase_connection() function"""
     if element["inputs"] and element["outputs"]:    return _has_connections(element, True) and _has_connections(element, False)
     elif element["inputs"]:                         return _has_connections(element, True)
     elif element["outputs"]:                        return _has_connections(element, False)
     else:                                           return False
 
 def _parse_dist(dist_name: str) -> int:
+    """Parse distributions from name to standart DistributionType values"""
     match dist_name:
         case "exponential": return DistributionType.exponential
         case "normal":      return DistributionType.normal
@@ -100,9 +110,13 @@ def _parse_dist(dist_name: str) -> int:
 def _parse_next_element(collection:     list | PriorityQueue,
                         element_info:   dict,
                         elements_by_id: dict) -> list | PriorityQueue:
+    """Fill provided collection with elements to make next element lists"""
+    # from output to input
     outputs = element_info["outputs"]
+    # elements may have multiple outputs
     for output_id in range(1, len(outputs)+1):
         connections = outputs[f"output_{output_id}"]["connections"]
+        # each output may have multiple connections
         for connection in connections:
             if isinstance(collection, list):
                 collection.append(elements_by_id[connection["node"]])

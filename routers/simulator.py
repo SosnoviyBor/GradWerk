@@ -12,6 +12,7 @@ templates = Jinja2Templates(directory="templates")
 @router.post("/simulate")
 async def simulate(request: Request):
     data = await request.json()
+    # full structure of model can be checked in /premade_flowcharts/basic.json
     model = data["model"]["drawflow"]["Home"]["data"]
     simtime = float(data["simtime"])
     assert simtime > 0

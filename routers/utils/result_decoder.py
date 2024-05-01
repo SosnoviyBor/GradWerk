@@ -1,6 +1,7 @@
 import json
 
 def decode(data: bytes) -> dict:
+    # i dont know why request encodes these symbols, but fuck me i guess
     return json.loads(
         data.decode()
             .replace("result=", "")

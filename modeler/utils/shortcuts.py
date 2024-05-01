@@ -9,6 +9,7 @@ def out_act(e: Element) -> None:
             e.next_element.in_act()
             
         case NextElementType.queue:
+            # sadly, theres no such method as peek() for queues here :(
             next_element: Element = e.next_element_queue.get()[1]
             next_element.in_act()
             # put element back

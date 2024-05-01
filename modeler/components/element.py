@@ -9,6 +9,9 @@ class Element:
     next_id = 0
     
     def __init__(self, delay: float, worker_count: int) -> None:
+        # FUCK PRIVATE VARIABLES, SETTERS AND GETTERS
+        # I KNOW WHAT IM DOING YOU MORON
+        # THE FILE NOW IS 3 GODDAMN TIMES SMALLER NERD
         self.worker_count = worker_count
         self.delay_mean = delay
         
@@ -31,7 +34,6 @@ class Element:
         self.next_element: Element
         self.next_element_queue: PriorityQueue
         self.next_element_array: list
-        # self.next_element_typed_array: dict
     
     
     @staticmethod

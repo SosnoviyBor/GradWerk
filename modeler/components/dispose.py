@@ -14,4 +14,3 @@ class Dispose(Element):
     
     def out_act(self) -> None:
         super().out_act()
-        # shortcuts.out_act(self)
