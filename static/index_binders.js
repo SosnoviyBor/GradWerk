@@ -1,31 +1,33 @@
 import { editor } from "./index.js";
-import * as handlers from "./index_handlers.js"
+import * as element_handlers from "./index_element_handlers.js"
+import * as window_handlers from "./index_window_handlers.js"
+import * as editor_handlers from "./index_editor_handlers.js"
 
 /* element binders */
 
 var elements = document.getElementsByClassName('drag-drawflow');
 for (var i = 0; i < elements.length; i++) {
-    elements[i].addEventListener('touchend', handlers.drop, false);
-    elements[i].addEventListener('touchmove', handlers.positionMobile, false);
-    elements[i].addEventListener('touchstart', handlers.drag, false);
-    elements[i].addEventListener('dragstart', (ev) => handlers.drag(ev))
+    elements[i].addEventListener('touchend', element_handlers.drop, false);
+    elements[i].addEventListener('touchmove', element_handlers.positionMobile, false);
+    elements[i].addEventListener('touchstart', element_handlers.drag, false);
+    elements[i].addEventListener('dragstart', (ev) => element_handlers.drag(ev))
 }
 
-document.getElementById("drawflow").addEventListener('dragover', (ev) => handlers.allowDrop(ev))
-document.getElementById("drawflow").addEventListener('drop', (ev) => handlers.drop(ev))
+document.getElementById("drawflow").addEventListener('dragover', (ev) => element_handlers.allowDrop(ev))
+document.getElementById("drawflow").addEventListener('drop', (ev) => element_handlers.drop(ev))
 
-document.getElementById("btn-export").addEventListener("click", () => handlers.exportAsJson())
-document.getElementById("btn-import").addEventListener("click", () => handlers.importJson())
-document.getElementById("import-input").addEventListener("change", () => handlers.readImportedJson())
-document.getElementById("btn-clear").addEventListener("click", () => handlers.clear())
+document.getElementById("btn-export").addEventListener("click", () => element_handlers.exportAsJson())
+document.getElementById("btn-import").addEventListener("click", () => element_handlers.importJson())
+document.getElementById("import-input").addEventListener("change", () => element_handlers.readImportedJson())
+document.getElementById("btn-clear").addEventListener("click", () => element_handlers.clear())
 
-document.getElementById("start").addEventListener("click", () => handlers.requestSimulation())
+document.getElementById("start").addEventListener("click", () => element_handlers.requestSimulation())
 
 
 
 /* window binders */
 
-window.addEventListener('beforeunload', (ev) => { handlers.check_unsaved_changes(ev) });
+window.addEventListener('beforeunload', (ev) => { window_handlers.check_unsaved_changes(ev) });
 
 
 
@@ -50,4 +52,4 @@ editor.on('connectionRemoved', (connection) => {
     console.log(connection)
 })
 
-editor.on("nodeCreated", (id) => { handlers.init_node_data(id) })
+editor.on("nodeCreated", (id) => { editor_handlers.init_node_data(id) })

@@ -32,30 +32,29 @@ class Model:
                     f">>>     Event in {self.elements[event_id].name}    <<<\n"
                     f">>>     time: {round(self.tnext, 4)}    <<<"))
             
-            # update current time of each element + show statistics
+            # update current time of each element + calculate some stats
             tcurr_old = self.tcurr
             self.tcurr = self.tnext
             for element in self.elements:
                 element.do_statistics(self.tnext - tcurr_old)
                 element.tcurr = self.tcurr
             
+            # move things between relevant elements queues
             self.elements[event_id].out_act()
             for element in self.elements:
                 if element.get_tnext() == self.tcurr:
                     element.out_act()
 
-            if do_output: self.call_elements_print_info()
+            # print element all element info maybe?
+            if do_output:
+                for element in self.elements:
+                    element.print_full_info()
         
-        if do_output: self.print_simulation_results()
+        if do_output:
+            self.print_simulation_results()
         print("Simulation is done successfully!")
         
         return self.collect_data()
-    
-    
-    def call_elements_print_info(self) -> None:
-        for element in self.elements:
-            element.print_full_info()
-    
     
     def print_simulation_results(self) -> None:
         print("\n-------------RESULTS-------------")

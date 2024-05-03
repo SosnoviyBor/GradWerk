@@ -26,7 +26,7 @@ function parse_data(param) {
                 name: element.getElementsByClassName("element-name")[0].innerHTML,
                 // its retarted
                 // and it will eventually break
-                // but if works
+                // but it works
                 // so fuck me
                 param: element.getElementsByClassName(`result-${param}`)[0].innerHTML.split(": ")[1]
             })
