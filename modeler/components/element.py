@@ -28,10 +28,8 @@ class Element:
         self.quantity = 0
         self.average_load = 0
         
-        self.next_element: Element
         self.next_element_queue: PriorityQueue
         self.next_element_array: list
-        # self.next_element_typed_array: dict
     
     
     @staticmethod
@@ -57,11 +55,6 @@ class Element:
         return self.tnext.queue[0]
     
     
-    def set_next_element(self, next_element: "Element") -> None:
-        self.next_element = next_element
-        self.next_element_type = NextElementType.single
-    
-    
     def set_next_element_queue(self, next_element_queue: PriorityQueue) -> None:
         self.next_element_type = NextElementType.queue
         self.next_element_queue = next_element_queue
@@ -70,11 +63,6 @@ class Element:
     def set_next_element_random(self, next_element_array: list) -> None:
         self.next_element_type = NextElementType.random
         self.next_element_array = next_element_array
-    
-    
-    def set_next_element_typed_array(self, next_element_typed_array: dict) -> None:
-        self.next_element_type = NextElementType.queue
-        self.next_element_typed_array = next_element_typed_array
     
     
     def in_act(self) -> None:
@@ -101,7 +89,7 @@ class Element:
         print(f"{self.name} quantity = {self.quantity}")
     
     
-    def print_full_info(self, failure: str = "") -> None:
+    def print_full_info(self, failure: int = -1) -> None:
         from .dispose import Dispose
         
         nearest_tnext: float = self.get_tnext()
@@ -120,6 +108,7 @@ class Element:
                 f"tnext: {round(nearest_tnext, 4)} | "
                 f"average_load: {self.average_load}"
             )
-        msg += failure
+        if failure > -1:
+            msg += f"\nfailure: {failure}"
         
         print(msg)

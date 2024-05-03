@@ -1,5 +1,4 @@
 class NextElementType:
-    single = "single"
     queue = "top to bottom"
     random = "random"
 

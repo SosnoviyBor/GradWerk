@@ -43,7 +43,7 @@ class Process(Element):
     
     
     def print_full_info(self) -> None:
-        super().print_full_info(f"\nfailure: {self.failure}")
+        super().print_full_info(self.failure)
     
     
     def do_statistics(self, delta: float) -> None:
