@@ -45,7 +45,7 @@ class Model:
                 if element.get_tnext() == self.tcurr:
                     element.out_act()
 
-            # print element all element info maybe?
+            # print all element info maybe?
             if do_output:
                 for element in self.elements:
                     element.print_full_info()
@@ -71,7 +71,7 @@ class Model:
     
     def collect_data(self) -> list:
         """
-        results [{
+        returns: [{
             data {
                 id: int,
                 name: str,
