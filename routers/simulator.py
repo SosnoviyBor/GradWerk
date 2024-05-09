@@ -18,6 +18,9 @@ async def simulate(request: Request):
     assert simtime > 0
     
     elements = create_elements(model)
-    results = Model(elements).simulate(simtime, False)
+    results, log = Model(elements).simulate(simtime)
     
-    return results
+    return {
+        "results": results,
+        "log": log
+    }

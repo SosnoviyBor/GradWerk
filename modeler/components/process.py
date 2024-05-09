@@ -42,8 +42,8 @@ class Process(Element):
         self.pop_tnext_from_queue()
     
     
-    def print_full_info(self) -> None:
-        super().print_full_info(self.failure)
+    def get_summary(self) -> str:
+        return super().get_summary(self.failure)
     
     
     def do_statistics(self, delta: float) -> None:

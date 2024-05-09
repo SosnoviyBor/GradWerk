@@ -16,10 +16,15 @@ async def index(request: Request):
     )
 
 
+# TODO rename the damn thing to resultS
 @router.post("/result")
 async def result(request: Request):
     data = decode(await request.body())
     
+    ctx = {
+        "results": data["results"],
+        "log": data["log"]
+    }
     return templates.TemplateResponse(
-        request=request, name="result.html", context={ "result": data }
+        request=request, name="result.html", context=ctx
     )

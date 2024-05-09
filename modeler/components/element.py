@@ -88,14 +88,12 @@ class Element:
         return self.tnext.get()
     
     
-    def print_result(self) -> None:
-        print(f"{self.name} quantity = {self.quantity}")
-    
-    
-    def print_full_info(self, failure: int = -1) -> None:
+    def get_summary(self, failure: int = -1) -> str:
+        # well, it sucks, but what can you do
+        # TODO move functionality to respective classes
         from .dispose import Dispose
         
-        nearest_tnext: float = self.get_tnext()
+        nearest_tnext = self.get_tnext()
         msg = f"\n##### {self.name} #####\n"
         
         if nearest_tnext != maxsize:
@@ -114,4 +112,4 @@ class Element:
         if failure > -1:
             msg += f"\nfailure: {failure}"
         
-        print(msg)
+        return msg

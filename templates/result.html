@@ -26,8 +26,14 @@ Simuation results
   <div style="width: 800px;"><canvas id="chart"></canvas></div>
 </div>
 
+<!-- TODO implement logs -->
+
 <div id="elements">
-  {% for element in result %}
+  <!--
+    TODO rethink elemnt data showcase
+    not sure if its even needed
+  -->
+  {% for element in results %}
   <div class="element" id="{{ 'element-' ~ element.data.id }}">
     <hr>
     <h2 class="element-name">{{ element.data.name }}</h2>

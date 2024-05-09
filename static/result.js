@@ -1,3 +1,5 @@
+// TODO MOAR CHARTS
+// GRADIENT CHARTS
 (async function () {
     const data = parse_data("failure_probability")
     new Chart(
@@ -28,6 +30,9 @@ function parse_data(param) {
                 // and it will eventually break
                 // but it works
                 // so fuck me
+                
+                // upd: IT WILL NOT WORK ANYMORE YOU STUPID DUNCE
+                // REFACTOR THIS CRAP, BOY
                 param: element.getElementsByClassName(`result-${param}`)[0].innerHTML.split(": ")[1]
             })
         }

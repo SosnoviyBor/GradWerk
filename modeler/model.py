@@ -10,13 +10,24 @@ class Model:
     def __init__(self, elements: List[Element]) -> None:
         self.elements = elements
         
+        self.iteration = -1
         self.tnext = .0
         self.tcurr = self.tnext
+        self.log = {
+            "first": [],
+            "last": []
+        }
     
     
-    def simulate(self, time: float, do_output: bool) -> None:
-        print(f"There are {len(self.elements)} elements in the simulation")
+    def simulate(self, time: float, log_max_size: int) -> tuple[list, list]:
+        self.iteration = 1
+        self.log["first"] = [f"There are {len(self.elements)} elements in the simulation"]
+        self.log["last"] = []
+        # TODO add timer
+        # to logger, probably
         
+        # thats it
+        # thats the whole algorithm for ya
         while self.tcurr < time:
             # searching nearest event
             self.tnext = maxsize
@@ -25,51 +36,53 @@ class Model:
                 if element.get_tnext() < self.tnext:
                     self.tnext = element.get_tnext()
                     event_id = element.id
-
-            # print output maybe?
-            if do_output:
-                print(("\n"
-                    f">>>     Event in {self.elements[event_id].name}    <<<\n"
-                    f">>>     time: {round(self.tnext, 4)}    <<<"))
-            
             # update current time of each element + calculate some stats
             tcurr_old = self.tcurr
             self.tcurr = self.tnext
             for element in self.elements:
                 element.do_statistics(self.tnext - tcurr_old)
                 element.tcurr = self.tcurr
-            
             # move things between relevant elements queues
             self.elements[event_id].out_act()
             for element in self.elements:
                 if element.get_tnext() == self.tcurr:
                     element.out_act()
 
-            # print all element info maybe?
-            if do_output:
-                for element in self.elements:
-                    element.print_full_info()
-        
-        if do_output:
-            self.print_simulation_results()
-        print("Simulation is done successfully!")
-        
-        return self.collect_data()
+            self._log_event(event_id, log_max_size)
+            self.iteration += 1
+
+        self._log_sim_results()
+        return self._collect_sim_summary(), self.log
     
-    def print_simulation_results(self) -> None:
-        print("\n-------------RESULTS-------------")
+    
+    def _log_event(self, event_id: int, log_max_size: int) -> None:
+        # generate message
+        msg = (f">>>     Event #{self.iteration} in {self.elements[event_id].name}    <<<\n"
+               f">>>     time: {round(self.tnext, 4)}    <<<\n")
         for element in self.elements:
-            element.print_result()
+            msg += element.get_summary() + "\n"
+        # update log
+        if len(self.log["first"]) <= log_max_size + 1:
+            self.log["last"].append(msg)
+        else:
+            self.log["last"].append(msg)
+            if len(self.log["last"]) > log_max_size:
+                del self.log["last"][0]
+    
+    
+    def _log_sim_results(self) -> None:
+        msg = "\n-------------RESULTS-------------\n"
+        for element in self.elements:
+            msg += f"{element.name} quantity = {element.quantity}\n"
             if isinstance(element, Process):
-                print(
-                    f"Mean length of queue = {element.mean_queue / self.tcurr}\n"
-                    f"Failure probability = {element.failure / (element.failure + element.quantity)}\n"
-                )
-            else:
-                print()
+                msg += ( f"Mean length of queue = {element.mean_queue / self.tcurr}\n"
+                        f"Failure probability = {element.failure / (element.failure + element.quantity)}\n")
+            msg += "\n"
+        msg += "\nSimulation is done successfully!\n"
+        self.log["last"].append(msg)
     
     
-    def collect_data(self) -> list:
+    def _collect_sim_summary(self) -> list:
         """
         returns: [{
             data {
