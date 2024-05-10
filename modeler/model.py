@@ -1,5 +1,6 @@
 from typing import List
 from sys import maxsize
+from time import perf_counter
 
 from modeler.components.element import Element
 from modeler.components.create import Create
@@ -19,12 +20,18 @@ class Model:
         }
     
     
-    def simulate(self, time: float, log_max_size: int) -> tuple[list, list]:
+    def simulate(self, time: float, log_max_size: int) -> dict:
+        """
+        return: {
+            results: dict[ check _collect_sim_summary() for details ],
+            log: [str],
+            time: float,
+        }
+        """
         self.iteration = 1
         self.log["first"] = [f"There are {len(self.elements)} elements in the simulation"]
         self.log["last"] = []
-        # TODO add timer
-        # to logger, probably
+        timer_start = perf_counter()
         
         # thats it
         # thats the whole algorithm for ya
@@ -50,9 +57,14 @@ class Model:
 
             self._log_event(event_id, log_max_size)
             self.iteration += 1
-
+        
+        timer_result = perf_counter() - timer_start
         self._log_sim_results()
-        return self._collect_sim_summary(), self.log
+        return {
+            "results": self._collect_sim_summary(),
+            "log": self.log,
+            "time": timer_result,
+        }
     
     
     def _log_event(self, event_id: int, log_max_size: int) -> None:
@@ -99,8 +111,8 @@ class Model:
                 !failures: int,
                 !mean_queue_length: float,
                 !failure_probability: float
-            }]
-        }
+            }
+        }]
         """
         model_data = []
         for element in self.elements:

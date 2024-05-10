@@ -114,16 +114,27 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
 }
 
 export function requestSimulation() {
-    const model = editor.export()
+    const simtime = document.getElementById("simtime").value
+    const log_max_size = Number(document.getElementById("log-max-size").value)
+
+    if (!(simtime > 0 &&
+            Number.isInteger(log_max_size) &&
+            log_max_size > 0)) {
+        console.log("Wrong input!")
+        return
+    }
+
+    const model = editor.export()["drawflow"]["Home"]["data"]
     console.log(model)
     fetch("/simulate", {
         method: "POST",
         body: JSON.stringify({
             model: model,
-            simtime: document.getElementById("simtime").value
+            simtime: simtime,
+            log_max_size: log_max_size
         }),
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
             .then((response) => response.json())
-            .then((json) => utils.post_to_new_tab(json, "/result"))
+            .then((json) => utils.post_to_new_tab(json, "/results"))
 }

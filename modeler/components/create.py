@@ -1,3 +1,5 @@
+from sys import maxsize
+
 from modeler.components.element import Element
 from modeler.utils import shortcuts
 
@@ -10,7 +12,18 @@ class Create(Element):
     def out_act(self) -> None:
         super().out_act()
         self.put_tnext(self.tcurr + self.get_delay())
-        
         shortcuts.out_act(self)
-        
         self.pop_tnext_from_queue()
+    
+    
+    def get_summary(self) -> str:
+        nearest_tnext = self.get_tnext()
+        if nearest_tnext != maxsize:
+            self.average_load = self.quantity / nearest_tnext
+
+        return (f"\n##### {self.name} #####\n"
+                f"state: {self.state} | "
+                f"quantity: {self.quantity} | "
+                f"queue: {self.queue} | "
+                f"tnext: {round(nearest_tnext, 4)} | "
+                f"average_load: {self.average_load}")

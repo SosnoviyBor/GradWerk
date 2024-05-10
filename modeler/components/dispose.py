@@ -14,3 +14,12 @@ class Dispose(Element):
     
     def out_act(self) -> None:
         super().out_act()
+    
+    
+    def get_summary(self) -> str:
+        nearest_tnext = self.get_tnext()
+        if nearest_tnext != maxsize:
+            self.average_load = self.quantity / nearest_tnext
+        
+        return (f"\n##### {self.name} #####\n"
+                f"quantity: {self.quantity}")

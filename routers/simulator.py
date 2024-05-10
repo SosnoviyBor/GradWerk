@@ -13,14 +13,12 @@ templates = Jinja2Templates(directory="templates")
 async def simulate(request: Request):
     data = await request.json()
     # full structure of model can be checked in /premade_flowcharts/basic.json
-    model = data["model"]["drawflow"]["Home"]["data"]
+    model = data["model"]
     simtime = float(data["simtime"])
+    log_max_size = int(data["log_max_size"])
     assert simtime > 0
     
     elements = create_elements(model)
-    results, log = Model(elements).simulate(simtime)
+    simdata = Model(elements).simulate(simtime, log_max_size)
     
-    return {
-        "results": results,
-        "log": log
-    }
+    return simdata

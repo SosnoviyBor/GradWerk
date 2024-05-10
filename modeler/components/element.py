@@ -88,28 +88,5 @@ class Element:
         return self.tnext.get()
     
     
-    def get_summary(self, failure: int = -1) -> str:
-        # well, it sucks, but what can you do
-        # TODO move functionality to respective classes
-        from .dispose import Dispose
-        
-        nearest_tnext = self.get_tnext()
-        msg = f"\n##### {self.name} #####\n"
-        
-        if nearest_tnext != maxsize:
-            self.average_load = self.quantity / nearest_tnext
-        
-        if isinstance(self, Dispose):
-            msg += f"quantity: {self.quantity}"
-        else:
-            msg += (
-                f"state: {self.state} | "
-                f"quantity: {self.quantity} | "
-                f"queue: {self.queue} | "
-                f"tnext: {round(nearest_tnext, 4)} | "
-                f"average_load: {self.average_load}"
-            )
-        if failure > -1:
-            msg += f"\nfailure: {failure}"
-        
-        return msg
+    def get_summary(self) -> str:
+        pass

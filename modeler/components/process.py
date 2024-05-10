@@ -43,7 +43,17 @@ class Process(Element):
     
     
     def get_summary(self) -> str:
-        return super().get_summary(self.failure)
+        nearest_tnext = self.get_tnext()
+        if nearest_tnext != maxsize:
+            self.average_load = self.quantity / nearest_tnext
+        
+        return (f"\n##### {self.name} #####\n"
+                f"state: {self.state} | "
+                f"quantity: {self.quantity} | "
+                f"queue: {self.queue} | "
+                f"tnext: {round(nearest_tnext, 4)} | "
+                f"average_load: {self.average_load}"
+                f"\nfailure: {self.failure}")
     
     
     def do_statistics(self, delta: float) -> None:
