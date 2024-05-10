@@ -17,83 +17,36 @@ Simuation results
 <!-- other -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <!-- local -->
-<script src="{{ url_for('static', path='result.js') }}" type="module"></script>
+<script src="{{ url_for('static', path='results.js') }}" type="module"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='results.css') }}" />
 {% endblock static %}
 
 
 {% block wrapper %}
 <div id="charts">
-  <div style="width: 800px;"><canvas id="chart"></canvas></div>
+  <div class="centered chart-div"
+  >
+    <canvas class="centered chart" id="chart"></canvas>
+  </div>
 </div>
 
 <!-- TODO implement logs -->
+<!-- two console-like windows -->
 
 <div id="elements">
-  <!--
-    TODO rethink elemnt data showcase
-    not sure if its even needed
-  -->
   {% for element in results %}
-  <div class="element" id="{{ 'element-' ~ element.data.id }}">
-    <hr>
-    <h2 class="element-name">{{ element.data.name }}</h2>
-    <div class="element-data">
-      <p class="d-inline-flex gap-1">
-        <a class="btn btn-secondary" data-bs-toggle="collapse" href="#element-data-{{ element.data.id }}"
-          role="button" aria-expanded="false">
-          Parameters
-        </a>
-      </p>
-      <div class="collapse" id="{{ 'element-data-' ~ element.data.id }}">
-        <div class="card card-body">
-          {% if "mean" in element.data %}
-          <p class="data-mean">
-            Mean: {{ element.data.mean }}
-          </p>
-          {% endif %}
-          {% if "deviation" in element.data %}
-          <p class="data-deviation">
-            Deviation: {{ element.data.deviation }}
-          </p>
-          {% endif %}
-          {% if "worker_count" in element.data %}
-          <p class="data-worker_count">
-            Replicas: {{ element.data.worker_count }}
-          </p>
-          {% endif %}
-          {% if (("distribution" in element.data) and (element.name != "User input")) %}
-          <p class="data-distribution">
-            Distribution: {{ element.data.distribution }}
-          </p>
-          {% endif %}
-          {% if "max_queue" in element.data %}
-          <p class="data-max_queue">
-            Max queue: {{ element.data.max_queue }}
-          </p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-    <div class="element-result">
-      <p class="result-quantity">
-        Quantity: {{ element.result.quantity }}
-      </p>
-      {% if "failures" in element.result %}
-      <p class="result-failures">
-        Failures: {{ element.result.failures }}
-      </p>
-      {% endif %}
-      {% if "mean_queue-length" in element.result %}
-      <p class="result-mean_queue_length">
-        Mean queue length: {{ element.result.mean_queue_length }}
-      </p>
-      {% endif %}
-      {% if "failure_probability" in element.result %}
-      <p class="result-failure_probability">
-        Failure probability: {{ element.result.failure_probability }}
-      </p>
-      {% endif %}
-    </div>
+  <div class="element" id="{{ 'element-' ~ element.data.id }}"
+    data-name="{{ element.data.name }}"
+    data-mean="{{ element.data.mean }}"
+    data-deviation="{{ element.data.deviation }}"
+    data-worker-count="{{ element.data.worker_count }}"
+    data-distribution="{{ element.data.distribution }}"
+    data-max-queue="{{ element.data.max_queue }}"
+    
+    data-quantity="{{ element.result.quantity }}"
+    data-failures="{{ element.result.failures }}"
+    data-mean-queue-length="{{ element.result.mean_queue_length }}"
+    data-failure-probability="{{ element.result.failure_probability }}">
   </div>
   {% endfor %}
 </div>

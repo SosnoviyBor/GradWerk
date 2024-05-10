@@ -1,0 +1,10 @@
+.chart {
+    width: 800px;
+    margin-top: 30px;
+}
+
+.centered {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
