@@ -361,6 +361,22 @@ header a {
 }
 
 
+.options-inp {
+  width: 150px;
+  height: 40px;
+}
+
+.options-p {
+  margin-bottom: 0px;
+}
+
+#start {
+  width: 150px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+
 #sim-started-overlay {
   color: white;
   position: fixed;
