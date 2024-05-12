@@ -75,7 +75,7 @@ class Model:
             msg += element.get_summary() + "\n"
         # update log
         if len(self.log["first"]) <= log_max_size + 1:
-            self.log["last"].append(msg)
+            self.log["first"].append(msg)
         else:
             self.log["last"].append(msg)
             if len(self.log["last"]) > log_max_size:

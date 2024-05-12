@@ -2,7 +2,7 @@ import json
 
 def decode(data: bytes) -> dict:
     # i dont know why request encodes these symbols, but fuck me i guess
-    return json.loads(
+    result = json.loads(
         data.decode()
             .replace("result=", "")
             # results replacers
@@ -21,3 +21,7 @@ def decode(data: bytes) -> dict:
             .replace("%23", "#")
             .replace("%7C", "|")
     )
+    result["log"]["first"] = [log.split("\n") for log in result["log"]["first"]]
+    result["log"]["last"] = [log.split("\n") for log in result["log"]["last"]]
+    
+    return result

@@ -30,10 +30,24 @@ Simuation results
   </div>
 </div>
 
-<!-- TODO implement logs -->
-<!-- two console-like windows -->
+<div id="logs">
+  <div id="logs-first">
+  {% for message in log.first %}
+  {% for line in message %}
+  {% if line == "" %}
+    <br>
+  {% else %}
+    <p>{{line}}</p>
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+  </div>
+  <div id="logs-last">
 
-<div id="elements">
+  </div>
+</div>
+
+<div id="elements" hidden>
   {% for element in results %}
   <div class="element" id="{{ 'element-' ~ element.data.id }}"
     data-name="{{ element.data.name }}"

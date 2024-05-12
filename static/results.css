@@ -3,6 +3,10 @@
     margin-top: 30px;
 }
 
+#logs {
+    font-family: Consolas;
+}
+
 .centered {
     text-align: center;
     margin-left: auto;
