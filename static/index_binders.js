@@ -5,13 +5,12 @@ import * as editor_handlers from "./index_editor_handlers.js"
 
 /* element binders */
 
-var elements = document.getElementsByClassName('drag-drawflow');
-for (var i = 0; i < elements.length; i++) {
-    elements[i].addEventListener('touchend', element_handlers.drop, false);
-    elements[i].addEventListener('touchmove', element_handlers.positionMobile, false);
-    elements[i].addEventListener('touchstart', element_handlers.drag, false);
-    elements[i].addEventListener('dragstart', (ev) => element_handlers.drag(ev))
-}
+Array.from(document.getElementsByClassName('drag-drawflow')).forEach(element => {
+    element.addEventListener('touchend', element_handlers.drop, false);
+    element.addEventListener('touchmove', element_handlers.positionMobile, false);
+    element.addEventListener('touchstart', element_handlers.drag, false);
+    element.addEventListener('dragstart', (ev) => element_handlers.drag(ev))
+})
 
 document.getElementById("drawflow").addEventListener('dragover', (ev) => element_handlers.allowDrop(ev))
 document.getElementById("drawflow").addEventListener('drop', (ev) => element_handlers.drop(ev))
@@ -22,6 +21,8 @@ document.getElementById("import-input").addEventListener("change", () => element
 document.getElementById("btn-clear").addEventListener("click", () => element_handlers.clear())
 
 document.getElementById("start").addEventListener("click", () => element_handlers.requestSimulation())
+document.getElementById("sim-started-overlay").addEventListener("click", () => element_handlers.hideOverlay())
+document.getElementById("header").addEventListener("click", () => element_handlers.hideOverlay())
 
 
 

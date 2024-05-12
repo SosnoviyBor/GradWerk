@@ -23,8 +23,8 @@ export function drag(ev) {
 export function drop(ev) {
     if (ev.type === "touchend") {
         var parentdrawflow = document
-                .elementFromPoint(mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY)
-                .closest("#drawflow")
+            .elementFromPoint(mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY)
+            .closest("#drawflow")
         if (parentdrawflow != null) {
             addNodeToDrawFlow(mobile_item_selec, mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY)
         }
@@ -87,23 +87,23 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
         case "userinput":
             editor.addNode(name, 0, 1, pos_x, pos_y, name, {}, component)
             break
-            
+
         case "useroutput":
             editor.addNode(name, 1, 0, pos_x, pos_y, name, {}, component)
             break
-            
+
         case "frontend":
             editor.addNode(name, 5, 5, pos_x, pos_y, name, {}, component)
             break
-            
+
         case "backend":
             editor.addNode(name, 5, 5, pos_x, pos_y, name, {}, component)
             break
-            
+
         case "database":
             editor.addNode(name, 5, 5, pos_x, pos_y, name, {}, component)
             break
-        
+
         case "comment":
             editor.addNode(name, 0, 0, pos_x, pos_y, name, {}, component)
             break
@@ -118,11 +118,14 @@ export function requestSimulation() {
     const log_max_size = Number(document.getElementById("log-max-size").value)
 
     if (!(simtime > 0 &&
-            Number.isInteger(log_max_size) &&
-            log_max_size > 0)) {
+        Number.isInteger(log_max_size) &&
+        log_max_size > 0)) {
         console.log("Wrong input!")
         return
     }
+
+    document.getElementById("sim-started-overlay").hidden = false
+    changeOverlayOpacity()
 
     const model = editor.export()["drawflow"]["Home"]["data"]
     console.log(model)
@@ -135,6 +138,30 @@ export function requestSimulation() {
         }),
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
-            .then((response) => response.json())
-            .then((json) => utils.post_to_new_tab(json, "/results"))
+        .then(response => response.json())
+        .then(json => {
+            utils.post_to_new_tab(json, "/results")
+            hideOverlay()
+        })
+}
+
+function changeOverlayOpacity() {
+    const bg = document.getElementById("overlay-bg")
+    const text = document.getElementById("overlay-text")
+    var i = 0
+    const scale = 50
+
+    const k = window.setInterval(() => {
+        if (i > scale) {
+            clearInterval(k);
+            return
+        }
+        bg.style.opacity = i / (scale * 2);
+        text.style.opacity = i / scale;
+        i++;
+    }, 10);
+}
+
+export function hideOverlay() {
+    document.getElementById("sim-started-overlay").hidden = true
 }

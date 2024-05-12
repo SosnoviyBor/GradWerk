@@ -20,10 +20,9 @@ async def index(request: Request):
 async def results(request: Request):
     data = decode(await request.body())
     
+    # its dumb and stupid but  r e a d a b i l i t y
     ctx = {
         "results": data["results"],
         "log": data["log"]
     }
-    return templates.TemplateResponse(
-        request=request, name="results.html", context=ctx
-    )
+    return templates.TemplateResponse(request=request, name="results.html", context=ctx)
