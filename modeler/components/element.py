@@ -1,8 +1,7 @@
 from queue import PriorityQueue
-from sys import maxsize
+import numpy as np
 
 from modeler.utils.consts import DistributionType, NextElementType
-from modeler.utils.random_gens import *
 
 
 class Element:
@@ -43,13 +42,13 @@ class Element:
     def get_delay(self) -> float:
         match(self.distribution):
             case DistributionType.exponential:
-                return exponential(self.delay_mean)
+                return np.random.exponential(self.delay_mean)
             case DistributionType.normal:
-                return normal(self.delay_mean, self.delay_deviation)
+                return np.random.normal(self.delay_mean, self.delay_deviation)
             case DistributionType.uniform:
-                return uniform(self.delay_mean, self.delay_deviation)
+                return np.random.uniform(self.delay_mean - self.delay_deviation, self.delay_mean + self.delay_deviation)
             case DistributionType.erlang:
-                return erlang(self.delay_mean, self.k)
+                return np.random.gamma(self.k, self.delay_mean)
             case _:
                 return self.delay_mean
     
