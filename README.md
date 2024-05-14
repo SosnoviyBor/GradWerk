@@ -8,6 +8,7 @@ Python:
 - [FastAPI](https://github.com/tiangolo/fastapi)
 - [Jinja](https://github.com/pallets/jinja/)
 - [Uvicorn](https://github.com/encode/uvicorn)
+- [numpy](https://github.com/numpy/numpy)
 - [Radon](https://github.com/rubik/radon)
 
 JavaScript:
