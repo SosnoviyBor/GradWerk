@@ -31,19 +31,31 @@ Simuation results
 </div>
 
 <div id="logs">
-  <div id="logs-first">
-  {% for message in log.first %}
-  {% for line in message %}
-  {% if line == "" %}
-    <br>
-  {% else %}
-    <p>{{line}}</p>
-  {% endif %}
-  {% endfor %}
-  {% endfor %}
+  <div id="logs-first" class="logbox-outer">
+    <div class="logbox">
+    {% for message in log.first %}
+    {% for line in message %}
+    {% if line == "" %}
+      <br>
+    {% else %}
+      <p class="log-line">{{line}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    </div>
   </div>
-  <div id="logs-last">
-
+  <div id="logs-last" class="logbox-outer">
+    <div class="logbox">
+    {% for message in log.last %}
+    {% for line in message %}
+    {% if line == "" %}
+      <br>
+    {% else %}
+      <p class="log-line">{{line}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    </div>
   </div>
 </div>
 

@@ -20,6 +20,8 @@ def decode(data: bytes) -> dict:
             .replace("%3C", "<")
             .replace("%23", "#")
             .replace("%7C", "|")
+            .replace("%3D", "=")
+            .replace("%21", "!")
     )
     result["log"]["first"] = [log.split("\n") for log in result["log"]["first"]]
     result["log"]["last"] = [log.split("\n") for log in result["log"]["last"]]

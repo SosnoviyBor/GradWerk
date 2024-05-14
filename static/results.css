@@ -4,7 +4,37 @@
 }
 
 #logs {
+    margin-left: auto;
+    margin-right: auto;
     font-family: Consolas;
+    padding-top: 20px;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: max-content max-content;
+    column-gap: 20px;
+    place-content: center;
+}
+
+.logbox-outer {
+    border: 3px solid gray;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.logbox {
+    width: fit-content;
+    height: 400px;
+    background: black;
+    color: lime;
+    padding: 15px;
+    overflow: auto;
+    scrollbar-color: lime black;
+}
+
+.log-line {
+    font-size: small;
+    line-height: 80%;
 }
 
 .centered {

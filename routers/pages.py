@@ -19,7 +19,6 @@ async def index(request: Request):
 @router.post("/results")
 async def results(request: Request):
     data = decode(await request.body())
-    print(data)
     
     # its dumb and stupid but  r e a d a b i l i t y
     ctx = {

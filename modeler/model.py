@@ -60,6 +60,8 @@ class Model:
         
         timer_result = perf_counter() - timer_start
         self._log_sim_results()
+        # trim trailing newline
+        self.log["last"][0] = self.log["last"][0][1:]
         return {
             "results": self._collect_sim_summary(),
             "log": self.log,
@@ -69,12 +71,13 @@ class Model:
     
     def _log_event(self, event_id: int, log_max_size: int) -> None:
         # generate message
-        msg = (f">>>     Event #{self.iteration} in {self.elements[event_id].name}    <<<\n"
+        msg = (f"\n"
+               f">>>     Event #{self.iteration} in {self.elements[event_id].name}    <<<\n"
                f">>>     time: {round(self.tnext, 4)}    <<<\n")
         for element in self.elements:
-            msg += element.get_summary() + "\n"
+            msg += element.get_summary()
         # update log
-        if len(self.log["first"]) <= log_max_size + 1:
+        if len(self.log["first"]) <= log_max_size :
             self.log["first"].append(msg)
         else:
             self.log["last"].append(msg)
@@ -85,12 +88,15 @@ class Model:
     def _log_sim_results(self) -> None:
         msg = "\n-------------RESULTS-------------\n"
         for element in self.elements:
-            msg += f"{element.name} quantity = {element.quantity}\n"
+            msg += (f"##### {element.name} #####\n"
+                    f"quantity = {element.quantity}\n")
             if isinstance(element, Process):
                 msg += ( f"Mean length of queue = {element.mean_queue / self.tcurr}\n"
                         f"Failure probability = {element.failure / (element.failure + element.quantity)}\n")
             msg += "\n"
-        msg += "\nSimulation is done successfully!\n"
+        msg = msg[:-1]
+        msg += ("---------------------------------\n"
+                "Simulation is done successfully!")
         self.log["last"].append(msg)
     
     

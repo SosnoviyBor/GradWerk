@@ -20,10 +20,13 @@ class Create(Element):
         nearest_tnext = self.get_tnext()
         if nearest_tnext != maxsize:
             self.average_load = self.quantity / nearest_tnext
+            nearest_tnext = round(nearest_tnext, 4)
+        else:
+            nearest_tnext = "maxval"
 
         return (f"\n##### {self.name} #####\n"
                 f"state: {self.state} | "
                 f"quantity: {self.quantity} | "
                 f"queue: {self.queue} | "
                 f"tnext: {round(nearest_tnext, 4)} | "
-                f"average_load: {self.average_load}")
+                f"average_load: {round(self.average_load, 4)}")
