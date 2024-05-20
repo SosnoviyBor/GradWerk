@@ -41,6 +41,7 @@ def create_elements(model: dict) -> List[Element]:
                 element.name = data["name"]
                 element.distribution = _parse_dist(data["dist"])
                 element.delay_deviation = float(data["deviation"])
+                element.k = float(data["deviation"])
             
             case "useroutput":
                 element = Dispose()
@@ -51,6 +52,7 @@ def create_elements(model: dict) -> List[Element]:
                 element.name = data["name"]
                 element.distribution = _parse_dist(data["dist"])
                 element.delay_deviation = float(data["deviation"])
+                element.k = float(data["deviation"])
                 element.max_queue = int(data["queuesize"])
             
             case _:

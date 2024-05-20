@@ -19,6 +19,8 @@ async def simulate(request: Request):
     assert simtime > 0
     
     elements = create_elements(model)
+    print("Modeling started!")
     simdata = Model(elements).simulate(simtime, log_max_size)
+    print("Modeling ended!")
     
     return simdata
