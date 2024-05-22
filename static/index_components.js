@@ -61,12 +61,11 @@ class CommonElements {
 
     // TODO make look pretty
     // make it the same style as simstarted?
-    // TODO fix scaling glitch
-    // or disable zoom :)
     // TODO add dynamic comment as textarea to display on the element itself?
     static modal(elements) {
         return `
             <div class="box dbclickbox">
+                &nbsp;
                 <div class="modal" style="display:none">
                     <div class="modal-content">
                         <span class="close">&times;</span>

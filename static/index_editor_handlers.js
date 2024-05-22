@@ -27,12 +27,18 @@ export function init_dbclickbox_listeners(id) {
 
 
 var transform = '';
+const default_zoom_value = editor.zoom_value
+const default_zoom_min = editor.zoom_min
+const default_zoom_max = editor.zoom_max
 function showPopup(ev) {
     // to prevent doublickicks registering on any inner tags
     // not that they break popups anyway
     // but at least it looks neat
     if (!ev.target.classList.contains("box")) { return }
 
+    editor.zoom_value = 0
+    editor.zoom_min = editor.zoom
+    editor.zoom_max = editor.zoom
     ev.target.closest(".drawflow-node").style.zIndex = "9999";
     ev.target.children[0].style.display = "block";
     transform = editor.precanvas.style.transform;
@@ -48,6 +54,9 @@ function closeModal(ev) {
     editor.precanvas.style.transform = transform;
     editor.precanvas.style.left = '0px';
     editor.precanvas.style.top = '0px';
+    editor.zoom_value = default_zoom_value
+    editor.zoom_min = default_zoom_min
+    editor.zoom_max = default_zoom_max
 }
 
 
