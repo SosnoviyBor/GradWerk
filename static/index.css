@@ -402,3 +402,7 @@ header a {
   text-align: center;
   opacity: 0;
 }
+
+.textarea-comment {
+  resize: none;
+}

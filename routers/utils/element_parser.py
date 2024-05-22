@@ -7,6 +7,7 @@ from modeler.components.process import Process
 from modeler.components.dispose import Dispose
 from modeler.utils.consts import DistributionType
 
+
 def create_elements(model: dict) -> List[Element]:
     """
     Parse request data into ready-to-simulate list of element objects
@@ -73,18 +74,31 @@ def create_elements(model: dict) -> List[Element]:
         
         # TODO update it to support balanced, round robin and random
         match element_info["data"]["order"].lower():
-            case "top to bottom":
-                element_obj.set_next_element_queue(
-                    _parse_next_element(PriorityQueue(), element_info, elements_by_id))
+            case "balanced":
+                element_obj.set_next_element_balanced(
+                    _parse_next_element(element_info, elements_by_id))
+            
+            case "round robin":
+                element_obj.set_next_element_roundrobin(
+                    _parse_next_element(element_info, elements_by_id))
             
             case "random":
                 element_obj.set_next_element_random(
-                    _parse_next_element(list(), element_info, elements_by_id))
+                    _parse_next_element(element_info, elements_by_id))
             
             case _:
                 raise(f"Recieved unknown element order: {element_info['data']['order']}")
     
     return [elements_by_id[key] for key in elements_by_id.keys()]
+
+
+def _is_valid_element(element: dict) -> bool:
+    """Shortcut for _hase_connection() function"""
+    if element["inputs"] and element["outputs"]:    return _has_connections(element, True) and _has_connections(element, False)
+    elif element["inputs"]:                         return _has_connections(element, True)
+    elif element["outputs"]:                        return _has_connections(element, False)
+    else:                                           return False
+
 
 def _has_connections(element: dict, is_input: bool) -> bool:
     """Check for having ANY connections from certain side"""
@@ -94,12 +108,6 @@ def _has_connections(element: dict, is_input: bool) -> bool:
             return True
     return False
 
-def _is_valid_element(element: dict) -> bool:
-    """Shortcut for _hase_connection() function"""
-    if element["inputs"] and element["outputs"]:    return _has_connections(element, True) and _has_connections(element, False)
-    elif element["inputs"]:                         return _has_connections(element, True)
-    elif element["outputs"]:                        return _has_connections(element, False)
-    else:                                           return False
 
 def _parse_dist(dist_name: str) -> int:
     """Parse distributions from name to standart DistributionType values"""
@@ -110,10 +118,10 @@ def _parse_dist(dist_name: str) -> int:
         case "uniform":     return DistributionType.uniform
         case _:             raise(f"Recieved unknown distribution type {dist_name}!")
 
-def _parse_next_element(collection:     list | PriorityQueue,
-                        element_info:   dict,
-                        elements_by_id: dict) -> list | PriorityQueue:
-    """Fill provided collection with elements to make next element lists"""
+
+def _parse_next_element(element_info: dict, elements_by_id: dict) -> list:
+    """Parse element list to next element lists"""
+    next_elements = []
     # from output to input
     outputs = element_info["outputs"]
     # elements may have multiple outputs
@@ -121,14 +129,5 @@ def _parse_next_element(collection:     list | PriorityQueue,
         connections = outputs[f"output_{output_id}"]["connections"]
         # each output may have multiple connections
         for connection in connections:
-            if isinstance(collection, list):
-                collection.append(elements_by_id[connection["node"]])
-                
-            elif isinstance(collection, PriorityQueue):
-                pair = (output_id, elements_by_id[connection["node"]])
-                collection.put(pair)
-                
-            else:
-                raise(f"Recieved unknown collection type: {type(collection)}")
-
-    return collection
+            next_elements.append(elements_by_id[connection["node"]])
+    return next_elements

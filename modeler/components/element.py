@@ -23,14 +23,14 @@ class Element:
         self.delay_deviation = .0
         self.k = 0 # used only in erlang()
         self.distribution = DistributionType.exponential
-        self.next_element_type = NextElementType.single
+        self.next_element_type = NextElementType.random
         self.tcurr = .0
         self.state = 0
         self.queue = 0 # amount of tnexts
         self.quantity = 0
         self.average_load = 0
+        self.round_robin_idx = 0
         
-        self.next_element_queue: PriorityQueue
         self.next_element_array: list
     
     
@@ -57,9 +57,14 @@ class Element:
         return self.tnext.queue[0]
     
     
-    def set_next_element_queue(self, next_element_queue: PriorityQueue) -> None:
-        self.next_element_type = NextElementType.queue
-        self.next_element_queue = next_element_queue
+    def set_next_element_balanced(self, next_element_array: list) -> None:
+        self.next_element_type = NextElementType.balanced
+        self.next_element_array = next_element_array
+    
+    
+    def set_next_element_roundrobin(self, next_element_array: list) -> None:
+        self.next_element_type = NextElementType.round_robin
+        self.next_element_array = next_element_array
     
     
     def set_next_element_random(self, next_element_array: list) -> None:

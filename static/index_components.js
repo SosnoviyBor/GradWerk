@@ -61,6 +61,9 @@ class CommonElements {
 
     // TODO make look pretty
     // make it the same style as simstarted?
+    // TODO fix scaling glitch
+    // or disable zoom :)
+    // TODO add dynamic comment as textarea to display on the element itself?
     static modal(elements) {
         return `
             <div class="box dbclickbox">
@@ -109,16 +112,18 @@ export const components = {
     
     "userinput": `
         <div>
-            <div class="title-box"><i class="fa-solid fa-arrow-right-to-bracket"></i> User input</div>
-            <div class="box">
-                ${CommonElements.set_name("User input")}
-                ${CommonElements.set_dist}
-                ${CommonElements.set_mean}
-                ${CommonElements.set_deviation}
-                ${CommonElements.set_replica_count}
-
-                ${CommonElements.set_order_for_single_io}
+            <div class="title-box">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> User input
             </div>
+            ${CommonElements.modal([
+                CommonElements.set_name("User input"),
+                CommonElements.set_dist,
+                CommonElements.set_mean,
+                CommonElements.set_deviation,
+                CommonElements.set_queue_size,
+                CommonElements.set_order,
+                CommonElements.set_replica_count
+            ])}
         </div>
     `,
 
@@ -151,44 +156,44 @@ export const components = {
     `,
 
     "backend": `
-    <div>
-        <div class="title-box">
-            <i class="fa-solid fa-server"></i> Backend
+        <div>
+            <div class="title-box">
+                <i class="fa-solid fa-server"></i> Backend
+            </div>
+            ${CommonElements.modal([
+                CommonElements.set_name("Backend"),
+                CommonElements.set_dist,
+                CommonElements.set_mean,
+                CommonElements.set_deviation,
+                CommonElements.set_queue_size,
+                CommonElements.set_order,
+                CommonElements.set_replica_count
+            ])}
         </div>
-        ${CommonElements.modal([
-            CommonElements.set_name("Backend"),
-            CommonElements.set_dist,
-            CommonElements.set_mean,
-            CommonElements.set_deviation,
-            CommonElements.set_queue_size,
-            CommonElements.set_order,
-            CommonElements.set_replica_count
-        ])}
-    </div>
     `,
 
     "database": `
-    <div>
-        <div class="title-box">
-            <i class="fa-solid fa-database"></i> Database
+        <div>
+            <div class="title-box">
+                <i class="fa-solid fa-database"></i> Database
+            </div>
+            ${CommonElements.modal([
+                CommonElements.set_name("Database"),
+                CommonElements.set_dist,
+                CommonElements.set_mean,
+                CommonElements.set_deviation,
+                CommonElements.set_queue_size,
+                CommonElements.set_order,
+                CommonElements.set_replica_count
+            ])}
         </div>
-        ${CommonElements.modal([
-            CommonElements.set_name("Database"),
-            CommonElements.set_dist,
-            CommonElements.set_mean,
-            CommonElements.set_deviation,
-            CommonElements.set_queue_size,
-            CommonElements.set_order,
-            CommonElements.set_replica_count
-        ])}
-    </div>
     `,
 
     "comment": `
         <div>
             <div class="title-box"><i class="fa-solid fa-comment"></i> Comment</div>
             <div class="box">
-                <textarea df-template></textarea>
+                <textarea class="textarea-comment" df-template></textarea>
             </div>
         </div>
     `,

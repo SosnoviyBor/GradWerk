@@ -1,6 +1,6 @@
 class NextElementType:
-    single = "single"
-    queue = "top to bottom"
+    balanced = "balanced"
+    round_robin = "round robin"
     random = "random"
 
 

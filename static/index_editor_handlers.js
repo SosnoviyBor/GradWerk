@@ -1,16 +1,17 @@
+import { editor } from "./index.js"
+
 export function init_node_data(id) {
-    const box = document.getElementById(`node-${id}`).getElementsByClassName("box")[0]
+    if (!document.getElementById(`node-${id}`).querySelector(".dbclickbox")) { return }
 
-    if (!box.hasChildNodes()) { return }
-
+    const content = document.getElementById(`node-${id}`).querySelector(".modal-content")
     const event = new Event("input", { bubbles: true })
     const updateable_tags = ["input", "select", "textarea"]
 
-    for (let i = 0; i < box.children.length; i++) {
-        if (updateable_tags.includes(box.children[i].tagName.toLowerCase())) {
-            box.children[i].dispatchEvent(event)
+    Array.from(content.children).forEach((child) => {
+        if (updateable_tags.includes(child.tagName.toLowerCase())) {
+            child.dispatchEvent(event)
         }
-    }
+    })
 }
 
 
