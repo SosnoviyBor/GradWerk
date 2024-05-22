@@ -2,15 +2,18 @@ import { editor } from "./index.js";
 import { components } from "./index_components.js"
 import * as utils from "./utils.js"
 
+
 var mobile_item_selec = ''
 var mobile_last_move = null
 export function positionMobile(ev) {
     mobile_last_move = ev
 }
 
+
 export function allowDrop(ev) {
     ev.preventDefault()
 }
+
 
 export function drag(ev) {
     if (ev.type === "touchstart") {
@@ -19,6 +22,7 @@ export function drag(ev) {
         ev.dataTransfer.setData("node", ev.target.getAttribute('data-node'))
     }
 }
+
 
 export function drop(ev) {
     if (ev.type === "touchend") {
@@ -36,10 +40,12 @@ export function drop(ev) {
     }
 }
 
+
 const jsonInput = document.getElementById("import-input")
 export function importJson() {
     jsonInput.click()
 }
+
 
 export function readImportedJson() {
     const reader = new FileReader()
@@ -57,15 +63,17 @@ export function readImportedJson() {
     jsonInput.value = ""
 }
 
+
 export function exportAsJson() {
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editor.export()));
-    var downloadAnchorNode = document.createElement('a');
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editor.export()));
+    const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
     downloadAnchorNode.setAttribute("download", "flowchart.json");
     document.body.appendChild(downloadAnchorNode); // required for firefox
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
 }
+
 
 export function clear() {
     if (confirm("Are you sure you want to clear your flowchart?")) {
@@ -93,15 +101,15 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
             break
 
         case "frontend":
-            editor.addNode(name, 5, 5, pos_x, pos_y, name, {}, component)
+            editor.addNode(name, 1, 1, pos_x, pos_y, name, {}, component)
             break
 
         case "backend":
-            editor.addNode(name, 5, 5, pos_x, pos_y, name, {}, component)
+            editor.addNode(name, 1, 1, pos_x, pos_y, name, {}, component)
             break
 
         case "database":
-            editor.addNode(name, 5, 5, pos_x, pos_y, name, {}, component)
+            editor.addNode(name, 1, 1, pos_x, pos_y, name, {}, component)
             break
 
         case "comment":
@@ -113,20 +121,23 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
     }
 }
 
+
 export function requestSimulation() {
     const simtime = document.getElementById("simtime").value
     const log_max_size = Number(document.getElementById("log-max-size").value)
-
-    if (!(simtime > 0 &&
-        Number.isInteger(log_max_size) &&
-        log_max_size > 0)) {
+    // check params
+    if (!(
+            simtime > 0 &&
+            Number.isInteger(log_max_size) &&
+            log_max_size > 0
+        )) {
         console.log("Wrong input!")
         return
     }
-
+    // show overlay
     document.getElementById("sim-started-overlay").hidden = false
     changeOverlayOpacity()
-
+    // start simulation
     const model = editor.export()["drawflow"]["Home"]["data"]
     console.log(model)
     fetch("/simulate", {
@@ -145,15 +156,16 @@ export function requestSimulation() {
         })
 }
 
+
 function changeOverlayOpacity() {
     const bg = document.getElementById("overlay-bg")
     const text = document.getElementById("overlay-text")
     var i = 0
     const scale = 50
 
-    const k = window.setInterval(() => {
+    const fadein = window.setInterval(() => {
         if (i > scale) {
-            clearInterval(k);
+            clearInterval(fadein);
             return
         }
         bg.style.opacity = i / (scale * 2);
@@ -162,6 +174,10 @@ function changeOverlayOpacity() {
     }, 10);
 }
 
+
 export function hideOverlay() {
     document.getElementById("sim-started-overlay").hidden = true
 }
+
+
+// TODO add realtime checks for element throughput

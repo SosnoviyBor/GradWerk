@@ -1,3 +1,5 @@
+// TODO create 4 separate charts
+// create function to create charts?
 const chart = new Chart(
     document.getElementById('chart'),
     {

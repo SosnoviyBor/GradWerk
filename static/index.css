@@ -74,7 +74,6 @@ header a {
   line-height: 50px;
   border-bottom: 1px solid var(--border-color);
   padding-left: 20px;
-  /* TODO make pretty */
 }
 
 .menu {

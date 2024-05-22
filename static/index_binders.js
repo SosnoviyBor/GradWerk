@@ -52,5 +52,7 @@ editor.on('connectionRemoved', (connection) => {
     console.log('Connection removed')
     console.log(connection)
 })
-
-editor.on("nodeCreated", (id) => { editor_handlers.init_node_data(id) })
+editor.on("nodeCreated", (id) => {
+    editor_handlers.init_node_data(id)
+    editor_handlers.init_dbclickbox_listeners(id)
+})

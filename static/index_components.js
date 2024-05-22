@@ -7,52 +7,70 @@ class CommonElements {
             <option value="erlang">Erlang</option>
             <option value="uniform">Uniform</option>
         </select>
-        <br><br>
+        <br>
     `
 
     static set_mean = `
         <p>Mean</p>
         <input type="number" value="1" df-mean>
-        <br><br>
+        <br>
     `
 
     static set_deviation = `
         <p>Deviation</p>
         <input type="number" value="1" df-deviation>
-        <br><br>
+        <br>
     `
     
     static set_replica_count = `
         <p>Replica count</p>
         <input type="number" df-replica value="1" min="1" step="1   ">
-        <br><br>
+        <br>
     `
     
     static set_order = `
         <p>Element order</p>
         <select df-order>
-            <option value="top to bottom">Top to bottom</option>
+            <option value="balanced">Balanced</option>
+            <option value="round robin">Round robin</option>
             <option value="random">Random</option>
         </select>
-        <br><br>
+        <br>
     `
 
     static set_order_for_single_io = `
-    <select df-order hidden disabled>
-        <option value="random">Random</option>
-    </select>
-`
+        <select df-order hidden disabled>
+            <option value="random">Random</option>
+        </select>
+    `
     
     static set_queue_size = `
         <p>Queue size</p>
         <input type="number" step="1" value="1" df-queuesize>
-        <br><br>
+        <br>
     `
 
+    // TODO add some space before name input
     static set_name(default_name) {
         return `
             <p>Name</p>
-            <input type="text" df-name value="${default_name}"><br><br>
+            <input class="df-name" type="text" value="${default_name}" df-name>
+            <br>
+        `
+    }
+
+    // TODO make look pretty
+    // make it the same style as simstarted?
+    static modal(elements) {
+        return `
+            <div class="box dbclickbox">
+                <div class="modal" style="display:none">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        ${elements.join("")}
+                    </div>
+                </div>
+            </div>
         `
     }
 }
@@ -106,56 +124,64 @@ export const components = {
 
     "useroutput": `
         <div>
-            <div class="title-box"><i class="fa-solid fa-arrow-right-from-bracket"></i> User output</div>
-            <div class="box">
-                ${CommonElements.set_name("Dispose")}
+            <div class="title-box">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> User output
             </div>
+            ${CommonElements.modal([
+                CommonElements.set_name("Dispose")
+            ])}
         </div>
     `,
 
     "frontend": `
         <div>
-            <div class="title-box"><i class="fa-solid fa-computer"></i> Frontend</div>
-            <div class="box">
-                ${CommonElements.set_name("Frontend")}
-                ${CommonElements.set_dist}
-                ${CommonElements.set_mean}
-                ${CommonElements.set_deviation}
-                ${CommonElements.set_queue_size}
-                ${CommonElements.set_order}
-                ${CommonElements.set_replica_count}
+            <div class="title-box">
+                <i class="fa-solid fa-computer"></i> Frontend
             </div>
+            ${CommonElements.modal([
+                CommonElements.set_name("Frontend"),
+                CommonElements.set_dist,
+                CommonElements.set_mean,
+                CommonElements.set_deviation,
+                CommonElements.set_queue_size,
+                CommonElements.set_order,
+                CommonElements.set_replica_count
+            ])}
         </div>
     `,
 
     "backend": `
-        <div>
-            <div class="title-box"><i class="fa-solid fa-server"></i> Backend</div>
-            <div class="box">
-                ${CommonElements.set_name("Backend")}
-                ${CommonElements.set_dist}
-                ${CommonElements.set_mean}
-                ${CommonElements.set_deviation}
-                ${CommonElements.set_queue_size}
-                ${CommonElements.set_order}
-                ${CommonElements.set_replica_count}
-            </div>
+    <div>
+        <div class="title-box">
+            <i class="fa-solid fa-server"></i> Backend
         </div>
+        ${CommonElements.modal([
+            CommonElements.set_name("Backend"),
+            CommonElements.set_dist,
+            CommonElements.set_mean,
+            CommonElements.set_deviation,
+            CommonElements.set_queue_size,
+            CommonElements.set_order,
+            CommonElements.set_replica_count
+        ])}
+    </div>
     `,
 
     "database": `
-        <div>
-            <div class="title-box"><i class="fa-solid fa-database"></i> Database</div>
-            <div class="box">
-                ${CommonElements.set_name("Database")}
-                ${CommonElements.set_dist}
-                ${CommonElements.set_mean}
-                ${CommonElements.set_deviation}
-                ${CommonElements.set_queue_size}
-                ${CommonElements.set_order}
-                ${CommonElements.set_replica_count}
-            </div>
+    <div>
+        <div class="title-box">
+            <i class="fa-solid fa-database"></i> Database
         </div>
+        ${CommonElements.modal([
+            CommonElements.set_name("Database"),
+            CommonElements.set_dist,
+            CommonElements.set_mean,
+            CommonElements.set_deviation,
+            CommonElements.set_queue_size,
+            CommonElements.set_order,
+            CommonElements.set_replica_count
+        ])}
+    </div>
     `,
 
     "comment": `
