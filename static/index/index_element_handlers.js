@@ -1,6 +1,6 @@
 import { editor } from "./index.js";
 import { components } from "./index_components.js"
-import * as utils from "./utils.js"
+import * as utils from "../utils.js"
 
 
 var mobile_item_selec = ''
@@ -178,6 +178,3 @@ function changeOverlayOpacity() {
 export function hideOverlay() {
     document.getElementById("sim-started-overlay").hidden = true
 }
-
-
-// TODO add realtime checks for element throughput

@@ -1,4 +1,3 @@
-from queue import PriorityQueue
 from typing import List
 
 from modeler.components.element import Element
@@ -72,7 +71,6 @@ def create_elements(model: dict) -> List[Element]:
         # check if element is supposed to have outputs
         if isinstance(element_obj, Dispose): continue
         
-        # TODO update it to support balanced, round robin and random
         match element_info["data"]["order"].lower():
             case "balanced":
                 element_obj.set_next_element_balanced(

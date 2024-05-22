@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 
 from routers.utils.element_parser import create_elements
+from routers.utils.throughput_calculator import calculate_throughput
 from modeler.model import Model
 
 
@@ -24,3 +25,10 @@ async def simulate(request: Request):
     print("Modeling ended!")
     
     return simdata
+
+
+@router.post("/throughput")
+async def simulate(request: Request):
+    data = await request.json()
+    
+    return calculate_throughput()

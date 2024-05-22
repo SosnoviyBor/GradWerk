@@ -20,9 +20,12 @@ export function init_dbclickbox_listeners(id) {
 
     if (!box.classList.contains("dbclickbox")) { return }
 
-    box.addEventListener("dblclick", (ev) => showPopup(ev))
-    box.querySelector("span").addEventListener("click", (ev) => closeModal(ev))
-    box.querySelector(".df-name").addEventListener("change", (ev) => updateName(ev))
+    box.addEventListener("dblclick", ev => showPopup(ev))
+    box.querySelector(".modal-close").addEventListener("click", ev => {
+        closeModal(ev)
+        updateThroughput(ev)
+    })
+    box.querySelector(".df-name").addEventListener("change", ev => updateName(ev))
 }
 
 
@@ -32,8 +35,8 @@ const default_zoom_min = editor.zoom_min
 const default_zoom_max = editor.zoom_max
 function showPopup(ev) {
     // to prevent doublickicks registering on any inner tags
-    // not that they break popups anyway
-    // but at least it looks neat
+    // not that they should be present in nodes anyway
+    // but, well, it looks neat
     if (!ev.target.classList.contains("box")) { return }
 
     editor.zoom_value = 0
@@ -50,13 +53,20 @@ function showPopup(ev) {
 
 function closeModal(ev) {
     ev.target.closest(".drawflow-node").style.zIndex = "2";
-    ev.target.parentElement.parentElement.style.display  ="none";
+    ev.target.parentElement.parentElement.style.display  = "none";
     editor.precanvas.style.transform = transform;
     editor.precanvas.style.left = '0px';
     editor.precanvas.style.top = '0px';
     editor.zoom_value = default_zoom_value
     editor.zoom_min = default_zoom_min
     editor.zoom_max = default_zoom_max
+}
+
+
+// TODO implement updateThroughput()
+function updateThroughput(ev) {
+    // send request to server with parameters to calculate throughput
+    // update data in element's box
 }
 
 

@@ -61,14 +61,15 @@ class CommonElements {
 
     // TODO make look pretty
     // make it the same style as simstarted?
-    // TODO add dynamic comment as textarea to display on the element itself?
+    // TODO add colored outline depending on element's thoughput
+    // TODO determine base throughput
     static modal(elements) {
         return `
-            <div class="box dbclickbox">
+            <div class="box dbclickbox" data-throughput="[ FILL ME ]">
                 &nbsp;
                 <div class="modal" style="display:none">
                     <div class="modal-content">
-                        <span class="close">&times;</span>
+                        <span class="modal-close">&times;</span>
                         ${elements.join("")}
                     </div>
                 </div>
