@@ -68,10 +68,17 @@ function closeModal(ev) {
 
 
 function updateThroughput(ev) {
-    // send request to server with parameters to calculate throughput
-    // update data in element's box
     const node = ev.target.closest(".drawflow-node")
     const data = editor.export()["drawflow"]["Home"]["data"][node.id.split("-")[1]]["data"]
+
+    if (!(
+            data["deviation"] &&
+            data["dist"] &&
+            data["mean"] &&
+            data["replica"]
+        )) {
+        return
+    }
 
     fetch("/throughput", {
         method: "POST",
@@ -94,24 +101,27 @@ export function calculateThroughputDifference() {
     // traverse all nodes which have inputs
     for (const [current_id, current_node] of Object.entries(model)) {
         if (!current_node["inputs"]) { continue }
-        // for each parent node take into the concideration element order
+        
         const current_node_element = document.getElementById(`node-${current_id}`)
         var current_throughput = current_node_element.dataset["throughput"]
         const parent_throughputs = []
+        
+        // for each parent node take into the concideration element order
         for (const [, current_node_input] of Object.entries(current_node["inputs"])) {
-            if(input["connections"].length < 1) { continue }
-            // for each connection in the input
+            if(current_node_input["connections"].length < 1) { continue }
+            
             Array.from(current_node_input["connections"]).forEach((connection) => {
                 const input_node = model[connection["node"]]
                 var multichoise_coef = 1
-                // if connection is not 1/1, then divide parent throughput depending on its element order
                 // check if connection is 1 to 1
+
                 var output_count = 0
                 for (const [, output] of Object.entries(input_node["outputs"])) {
                     if (output["connections"]) { output_count++ }
                 }
-
+                
                 if(output_count > 1) {
+                    // if connection is not 1/1, then divide parent throughput depending on its element order
                     switch (input_node["data"]["order"]) {
                         case ElementOrder.balanced:
                             // balanced = sum of all child nodes quesizes (queue * replica) / quesize of current node
@@ -143,8 +153,7 @@ export function calculateThroughputDifference() {
 
 
 function updateOutline(node, throughput_ratio) {
-    console.log(throughput_ratio)
-    if (throughput_ratio >= 1) {
+    if (throughput_ratio >= 1 || throughput_ratio === NaN) {
         // remove styles
         node.style.border = ""
         node.style.webkitBoxShadow = ""

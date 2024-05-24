@@ -39,7 +39,7 @@ def create_elements(model: dict) -> List[Element]:
             case "userinput":
                 element = Create(float(data["mean"]), int(data["replica"]))
                 element.name = data["name"]
-                element.distribution = _parse_dist(data["dist"])
+                element.distribution = parse_dist(data["dist"])
                 element.delay_deviation = float(data["deviation"])
                 element.k = float(data["deviation"])
             
@@ -50,7 +50,7 @@ def create_elements(model: dict) -> List[Element]:
             case "frontend" | "backend" | "database":
                 element = Process(float(data["mean"]), int(data["replica"]))
                 element.name = data["name"]
-                element.distribution = _parse_dist(data["dist"])
+                element.distribution = parse_dist(data["dist"])
                 element.delay_deviation = float(data["deviation"])
                 element.k = float(data["deviation"])
                 element.max_queue = int(data["queuesize"])

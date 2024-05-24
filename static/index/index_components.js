@@ -63,8 +63,6 @@ class CommonElements {
 
     // TODO make look pretty
     // make it the same style as simstarted?
-    // TODO add colored outline depending on element's thoughput
-    // TODO determine base throughput
     static modal(elements) {
         return `
             <div class="box dbclickbox" data-throughput="[ FILL ME ]">
