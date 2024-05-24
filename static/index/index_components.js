@@ -1,3 +1,5 @@
+import { ElementOrder } from "../consts.js"
+
 class CommonElements {
     static set_dist = `
         <p>Distribution</p>
@@ -31,9 +33,9 @@ class CommonElements {
     static set_order = `
         <p>Element order</p>
         <select df-order>
-            <option value="balanced">Balanced</option>
-            <option value="round robin">Round robin</option>
-            <option value="random">Random</option>
+            <option value="${ElementOrder.balanced}">Balanced</option>
+            <option value="${ElementOrder.round_robin}">Round robin</option>
+            <option value="${ElementOrder.random}">Random</option>
         </select>
         <br>
     `

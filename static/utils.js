@@ -17,3 +17,7 @@ export function post_to_new_tab(json, link) {
     form.submit()
     form.remove()
 }
+
+export function mean(arr) {
+    return arr.reduce( ( p, c ) => p + c, 0 ) / arr.length
+}

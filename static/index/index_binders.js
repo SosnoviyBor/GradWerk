@@ -46,10 +46,12 @@ editor.on('removeReroute',      id => console.log("Reroute removed " + id))
 editor.on('connectionCreated',  connection => {
     console.log('Connection created')
     console.log(connection)
+    editor_handlers.calculateThroughputDifference()
 })
 editor.on('connectionRemoved', connection => {
     console.log('Connection removed')
     console.log(connection)
+    editor_handlers.calculateThroughputDifference()
 })
 editor.on("nodeCreated", id => {
     editor_handlers.init_node_data(id)

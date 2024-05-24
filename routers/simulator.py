@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 
-from routers.utils.element_parser import create_elements
+from routers.utils.element_parser import create_elements, parse_dist
 from routers.utils.throughput_calculator import calculate_throughput
 from modeler.model import Model
 
@@ -12,11 +12,11 @@ templates = Jinja2Templates(directory="templates")
 
 @router.post("/simulate")
 async def simulate(request: Request):
-    data = await request.json()
+    body = await request.json()
     # full structure of model can be checked in /premade_flowcharts/basic.json
-    model = data["model"]
-    simtime = float(data["simtime"])
-    log_max_size = int(data["log_max_size"])
+    model = body["model"]
+    simtime = float(body["simtime"])
+    log_max_size = int(body["log_max_size"])
     assert simtime > 0
     
     elements = create_elements(model)
@@ -28,7 +28,13 @@ async def simulate(request: Request):
 
 
 @router.post("/throughput")
-async def simulate(request: Request):
-    data = await request.json()
+async def throughput(request: Request):
+    body = await request.json()
+    data = body["data"]
     
-    return calculate_throughput()
+    throughput = calculate_throughput(float(data["deviation"]),
+                                      parse_dist(data["dist"]),
+                                      float(data["mean"]),
+                                      int(data["replica"]))
+    
+    return throughput

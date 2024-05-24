@@ -107,7 +107,7 @@ def _has_connections(element: dict, is_input: bool) -> bool:
     return False
 
 
-def _parse_dist(dist_name: str) -> int:
+def parse_dist(dist_name: str) -> int:
     """Parse distributions from name to standart DistributionType values"""
     match dist_name:
         case "exponential": return DistributionType.exponential
