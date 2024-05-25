@@ -9,3 +9,4 @@ class DistributionType:
     normal = "normal"
     uniform = "uniform"
     erlang = "erlang"
+    constant = "constant"

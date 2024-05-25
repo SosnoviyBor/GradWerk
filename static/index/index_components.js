@@ -8,6 +8,7 @@ class CommonElements {
             <option value="normal">Normal</option>
             <option value="erlang">Erlang</option>
             <option value="uniform">Uniform</option>
+            <option value="constant">Constant</option>
         </select>
         <br>
     `
@@ -52,7 +53,6 @@ class CommonElements {
         <br>
     `
 
-    // TODO add some space before name input
     static set_name(default_name) {
         return `
             <p>Name</p>
@@ -61,15 +61,14 @@ class CommonElements {
         `
     }
 
-    // TODO make look pretty
-    // make it the same style as simstarted?
     static modal(elements) {
         return `
-            <div class="box dbclickbox" data-throughput="[ FILL ME ]">
+            <div class="box dbclickbox" data-throughput="0">
                 &nbsp;
                 <div class="modal" style="display:none">
                     <div class="modal-content">
                         <span class="modal-close">&times;</span>
+                        <br>
                         ${elements.join("")}
                     </div>
                 </div>

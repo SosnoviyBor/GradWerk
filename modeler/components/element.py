@@ -49,7 +49,7 @@ class Element:
                 return np.random.uniform(self.delay_mean - self.delay_deviation, self.delay_mean + self.delay_deviation)
             case DistributionType.erlang:
                 return np.random.gamma(self.k, self.delay_mean)
-            case _:
+            case DistributionType.constant | _:
                 return self.delay_mean
     
     

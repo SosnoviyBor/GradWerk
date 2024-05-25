@@ -114,6 +114,7 @@ def parse_dist(dist_name: str) -> int:
         case "normal":      return DistributionType.normal
         case "erlang":      return DistributionType.erlang
         case "uniform":     return DistributionType.uniform
+        case "constant":    return DistributionType.constant
         case _:             raise(f"Recieved unknown distribution type {dist_name}!")
 
 

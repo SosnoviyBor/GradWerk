@@ -3,7 +3,7 @@ import numpy as np
 from modeler.utils.consts import DistributionType
 
 def calculate_throughput(deviation: float,
-                         dist: int,
+                         dist: str,
                          mean: float,
                          replica: int):
     SAMPLE_SIZE = 10000
@@ -17,7 +17,7 @@ def calculate_throughput(deviation: float,
             sample = np.random.uniform(mean - deviation, mean + deviation, SAMPLE_SIZE)
         case DistributionType.erlang:
             sample = np.random.gamma(deviation, mean, SAMPLE_SIZE)
-        case _:
+        case DistributionType.constant | _:
             sample = mean
     
     throughput = np.mean(sample) / replica
