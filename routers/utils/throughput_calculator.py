@@ -18,7 +18,7 @@ def calculate_throughput(deviation: float,
         case DistributionType.erlang:
             sample = np.random.gamma(deviation, mean, SAMPLE_SIZE)
         case DistributionType.constant | _:
-            sample = mean
+            sample = [mean for _ in range(SAMPLE_SIZE)]
     
     throughput = np.mean(sample) / replica
     
