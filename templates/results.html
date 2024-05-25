@@ -17,16 +17,24 @@ Simuation results
 <!-- other -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <!-- local -->
-<script src="{{ url_for('static', path='index/results.js') }}" type="module"></script>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='index/results.css') }}" />
+<script src="{{ url_for('static', path='results/results.js') }}" type="module"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='results/results.css') }}" />
 {% endblock static %}
 
 
 {% block wrapper %}
-<div id="charts">
-  <div class="centered chart-div"
-  >
-    <canvas class="centered chart" id="chart"></canvas>
+<div id="charts" class="centered">
+  <div class="chart-div">
+    <canvas class="chart" id="chart-failprob"></canvas>
+  </div>
+  <div class="chart-div">
+    <canvas class="chart" id="chart-fails"></canvas>
+  </div>
+  <div class="chart-div">
+    <canvas class="chart" id="chart-meanqueue"></canvas>
+  </div>
+  <div class="chart-div">
+    <canvas class="chart" id="chart-quantity"></canvas>
   </div>
 </div>
 
@@ -58,6 +66,9 @@ Simuation results
     </div>
   </div>
 </div>
+
+<hr id="vline-left" class="vline" />
+<hr id="vline-right" class="vline" />
 
 <div id="elements" hidden>
   {% for element in results %}
