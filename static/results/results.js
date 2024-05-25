@@ -1,44 +1,14 @@
-// TODO create 4 separate charts
-// create function to create charts?
-const chart = new Chart(
-    document.getElementById('chart'),
-    {
-        type: 'bar',
-        data: {
-            labels: parse_data("name").map(row => row.name),
-            datasets: [
-                {
-                    label: 'Failure probability',
-                    data: parse_data("failureProbability").map(row => row.value)
-                },
-                {
-                    label: 'Mean queue length',
-                    data: parse_data("meanQueueLength").map(row => row.value)
-                },
-                {
-                    label: 'Successful transactions',
-                    data: parse_data("quantity").map(row => row.value),
-                    hidden: true
-                },
-                {
-                    label: 'Total failures',
-                    data: parse_data("failures").map(row => row.value),
-                    hidden: true
-                },
-            ]
-        }
-    }
-);
+import { generate_chart } from "./chart_factory.js"
 
-function parse_data(value) {
-    const data = []
 
-    Array.from(document.getElementsByClassName("element")).forEach(element => {
-        data.push({
-            name: element.dataset.name,
-            value: element.dataset[value]
-        })
-    });
+generate_chart(document.getElementById("chart-failprob"),
+    "Failure probability", "failureProbability", "rgb(255, 99, 132)", "rgb(255, 99, 132, 0.5)")
 
-    return data
-}
+generate_chart(document.getElementById("chart-meanqueue"),
+    "Mean queue Length", "meanQueueLength", "rgb(255, 159, 64)", "rgb(255, 159, 64, 0.5)")
+
+generate_chart(document.getElementById("chart-quantity"),
+    "Quantity", "quantity", "rgb(75, 192, 192)", "rgb(75, 192, 192, 0.5)")
+
+generate_chart(document.getElementById("chart-fails"),
+    "Total failures", "failures", "rgb(255, 99, 132)", "rgb(255, 99, 132, 0.5)")

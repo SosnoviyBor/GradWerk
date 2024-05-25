@@ -1,17 +1,27 @@
-.chart {
-    width: 800px;
-    margin-top: 30px;
+#charts {
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 50px;
+    column-gap: 20px;
+    place-content: center;
+}
+
+.chart-div {
+    width: 600px;
 }
 
 #logs {
     margin-left: auto;
     margin-right: auto;
     font-family: Consolas;
-    padding-top: 20px;
+    padding-top: 60px;
+    padding-bottom: 200px;
     overflow: hidden;
 
     display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
     column-gap: 20px;
     place-content: center;
 }
@@ -35,6 +45,25 @@
 .log-line {
     font-size: small;
     line-height: 80%;
+}
+
+.vline {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    border: none;
+    border-right: solid 2px black;
+    opacity: 1;
+    z-index: 10;
+}
+
+#vline-left {
+    left: 10%;
+}
+
+#vline-right {
+    left: 90%;
 }
 
 .centered {

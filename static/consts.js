@@ -1,5 +1,5 @@
 export class ElementOrder {
-    balanced = "balanced"
-    round_robin = "round robin"
-    random = "random"
+    static balanced = "balanced"
+    static round_robin = "round robin"
+    static random = "random"
 }
