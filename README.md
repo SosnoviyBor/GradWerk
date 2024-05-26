@@ -1,5 +1,5 @@
 # Model's Construct
-[ description ]
+<i>Бакалаврська робота студента КПІ ім. Ігоря Сікорського Федяя Борислава.</i>
 
 [ screenshots ]
 
