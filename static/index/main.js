@@ -1,4 +1,4 @@
-import base_flowchart from "../recources/empty.json" with { type: 'json' }
+import base_flowchart from "../recources/flowchart.json" with { type: 'json' }
 
 // start drawflow
 export const default_flowchart = base_flowchart

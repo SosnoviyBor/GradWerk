@@ -1,3 +1,5 @@
+import { editor } from "./index/main.js"
+
 export function post_to_new_tab(json, link) {
     const inp = document.createElement("input")
     inp.id = "result_middleman"

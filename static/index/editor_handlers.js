@@ -1,6 +1,7 @@
-import { editor } from "./index.js"
+import { editor } from "./main.js"
 import { ElementOrder } from "../consts.js"
 import { mean } from "../utils.js"
+
 
 export function init_node_data(id) {
     if (!document.getElementById(`node-${id}`).querySelector(".dbclickbox")) { return }

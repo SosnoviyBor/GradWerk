@@ -87,13 +87,21 @@ class Model:
     
     def _log_sim_results(self) -> None:
         msg = "\n-------------RESULTS-------------\n"
+        
         for element in self.elements:
             msg += (f"##### {element.name} #####\n"
                     f"quantity = {element.quantity}\n")
+            
             if isinstance(element, Process):
-                msg += ( f"Mean length of queue = {element.mean_queue / self.tcurr}\n"
-                        f"Failure probability = {element.failure / (element.failure + element.quantity)}\n")
+                failure_prob = 0
+                if element.failure + element.quantity != 0:
+                    failure_prob = element.failure / (element.failure + element.quantity)
+                    
+                msg += (f"Mean length of queue = {element.mean_queue / self.tcurr}\n"
+                        f"Failure probability = {failure_prob}\n")
+            
             msg += "\n"
+        
         msg = msg[:-1]
         msg += ("---------------------------------\n"
                 "Simulation is done successfully!")
@@ -150,9 +158,13 @@ class Model:
                 pass
                 
             if isinstance(element, Process):
+                failure_prob = 0
+                if element.failure + element.quantity != 0:
+                    failure_prob = element.failure / (element.failure + element.quantity)
+                    
                 element_result["failures"] = element.failure
                 element_result["mean_queue_length"] = element.mean_queue / self.tcurr
-                element_result["failure_probability"] = element.failure / (element.failure + element.quantity)
+                element_result["failure_probability"] = failure_prob
                 
             elif isinstance(element, Dispose):
                 pass

@@ -1,5 +1,5 @@
-import { editor } from "./index.js";
-import { components } from "./index_components.js"
+import { editor } from "./main.js";
+import { components } from "./components.js"
 import * as utils from "../utils.js"
 
 
@@ -49,18 +49,22 @@ export function importJson() {
 
 export function readImportedJson() {
     const reader = new FileReader()
-    reader.onload = (ev) => {
-        var content
-        try {
-            content = JSON.parse(ev.target.result)
-        } catch (e) {
-            alert("Uploaded file is not a valid JSON!")
-            return
-        }
-        editor.import(content)
-    }
+    reader.onload = parseJson
     reader.readAsText(jsonInput.files[0], "UTF-8")
     jsonInput.value = ""
+}
+
+
+function parseJson(ev) {
+    var content
+    try {
+        content = JSON.parse(ev.target.result)
+    } catch (e) {
+        alert("Uploaded file is not a valid JSON!")
+        return
+    }
+    editor.import(content)
+          .then(utils.init_nodes())
 }
 
 
@@ -127,6 +131,7 @@ export function requestSimulation() {
     const log_max_size = Number(document.getElementById("log-max-size").value)
     // check params
     if (!(
+            Number.isInteger(simtime) &&
             simtime > 0 &&
             Number.isInteger(log_max_size) &&
             log_max_size > 0
@@ -139,14 +144,15 @@ export function requestSimulation() {
     changeOverlayOpacity()
     // start simulation
     const model = editor.export()["drawflow"]["Home"]["data"]
-    console.log(model)
+    const body = {
+        model: model,
+        simtime: simtime,
+        log_max_size: log_max_size
+    }
+    console.log(body)
     fetch("/simulate", {
         method: "POST",
-        body: JSON.stringify({
-            model: model,
-            simtime: simtime,
-            log_max_size: log_max_size
-        }),
+        body: JSON.stringify(body),
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
         .then(response => response.json())
