@@ -2,6 +2,7 @@ import { editor } from "./main.js";
 import * as element_handlers from "./element_handlers.js"
 import * as window_handlers from "./window_handlers.js"
 import * as editor_handlers from "./editor_handlers.js"
+import { init_nodes_dbclickboxes_and_throughputs } from "../utils.js";
 
 /* element binders */
 
@@ -58,9 +59,4 @@ editor.on("nodeCreated", id => {
     editor_handlers.init_dbclickbox_listeners(id)
 })
 
-Array.from(Object.keys(editor.export()["drawflow"]["Home"]["data"]),
-    (id) => {
-        init_dbclickbox_listeners(id)
-    }
-)
-calculateThroughputDifference()
+init_nodes_dbclickboxes_and_throughputs()

@@ -1,4 +1,6 @@
 import { editor } from "./index/main.js"
+import { init_dbclickbox_listeners, calculateThroughputDifference } from "./index/editor_handlers.js"
+
 
 export function post_to_new_tab(json, link) {
     const inp = document.createElement("input")
@@ -20,6 +22,17 @@ export function post_to_new_tab(json, link) {
     form.remove()
 }
 
+
 export function mean(arr) {
     return arr.reduce( ( p, c ) => p + c, 0 ) / arr.length
+}
+
+
+export function init_nodes_dbclickboxes_and_throughputs() {
+    Array.from(Object.keys(editor.export()["drawflow"]["Home"]["data"]),
+        (id) => {
+            init_dbclickbox_listeners(id)
+        }
+    )
+    calculateThroughputDifference()
 }

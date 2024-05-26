@@ -1,6 +1,7 @@
 import { editor } from "./main.js";
 import { components } from "./components.js"
 import * as utils from "../utils.js"
+import { init_nodes_dbclickboxes_and_throughputs } from "../utils.js";
 
 
 var mobile_item_selec = ''
@@ -64,7 +65,7 @@ function parseJson(ev) {
         return
     }
     editor.import(content)
-          .then(utils.init_nodes())
+    init_nodes_dbclickboxes_and_throughputs()
 }
 
 
