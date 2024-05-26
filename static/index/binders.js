@@ -1,29 +1,31 @@
 import { editor } from "./main.js";
-import * as element_handlers from "./element_handlers.js"
-import * as window_handlers from "./window_handlers.js"
-import * as editor_handlers from "./editor_handlers.js"
-import { init_nodes_dbclickboxes_and_throughputs } from "../utils.js";
+import * as drawflow_handlers from "./handlers/drawflow.js"
+import * as button_handlers from "./handlers/buttons.js"
+import * as window_handlers from "./handlers/window.js"
+import * as node_throughput from "./handlers/nodes/throughput.js"
+import * as node_simstarted from "./handlers/nodes/simstarted.js"
+import * as initializers from "./handlers/initializers.js"
 
 /* element binders */
 
 Array.from(document.getElementsByClassName('drag-drawflow')).forEach(element => {
-    element.addEventListener('touchend', element_handlers.drop, false);
-    element.addEventListener('touchmove', element_handlers.positionMobile, false);
-    element.addEventListener('touchstart', element_handlers.drag, false);
-    element.addEventListener('dragstart', ev => element_handlers.drag(ev))
+    element.addEventListener('touchend', drawflow_handlers.drop, false);
+    element.addEventListener('touchmove', drawflow_handlers.positionMobile, false);
+    element.addEventListener('touchstart', drawflow_handlers.drag, false);
+    element.addEventListener('dragstart', ev => drawflow_handlers.drag(ev))
 })
 
-document.getElementById("drawflow").addEventListener('dragover', ev => element_handlers.allowDrop(ev))
-document.getElementById("drawflow").addEventListener('drop', ev => element_handlers.drop(ev))
+document.getElementById("drawflow").addEventListener('dragover', ev => drawflow_handlers.allowDrop(ev))
+document.getElementById("drawflow").addEventListener('drop', ev => drawflow_handlers.drop(ev))
 
-document.getElementById("btn-export").addEventListener("click", element_handlers.exportAsJson)
-document.getElementById("btn-import").addEventListener("click", element_handlers.importJson)
-document.getElementById("import-input").addEventListener("change", element_handlers.readImportedJson)
-document.getElementById("btn-clear").addEventListener("click", element_handlers.clear)
+document.getElementById("btn-export").addEventListener("click", button_handlers.exportAsJson)
+document.getElementById("btn-import").addEventListener("click", button_handlers.importJson)
+document.getElementById("import-input").addEventListener("change", button_handlers.readImportedJson)
+document.getElementById("btn-clear").addEventListener("click", button_handlers.clear)
 
-document.getElementById("start").addEventListener("click", element_handlers.requestSimulation)
-document.getElementById("sim-started-overlay").addEventListener("click", element_handlers.hideOverlay)
-document.getElementById("header").addEventListener("click", element_handlers.hideOverlay)
+document.getElementById("start").addEventListener("click", button_handlers.requestSimulation)
+document.getElementById("sim-started-overlay").addEventListener("click", node_simstarted.hideOverlay)
+document.getElementById("header").addEventListener("click", node_simstarted.hideOverlay)
 
 
 
@@ -47,16 +49,17 @@ editor.on('removeReroute',      id => console.log("Reroute removed " + id))
 editor.on('connectionCreated',  connection => {
     console.log('Connection created')
     console.log(connection)
-    editor_handlers.calculateThroughputDifference()
+    node_throughput.calculateThroughputDifference()
 })
 editor.on('connectionRemoved', connection => {
     console.log('Connection removed')
     console.log(connection)
-    editor_handlers.calculateThroughputDifference()
+    node_throughput.calculateThroughputDifference()
 })
 editor.on("nodeCreated", id => {
-    editor_handlers.init_node_data(id)
-    editor_handlers.init_dbclickbox_listeners(id)
+    initializers.nodeData(id)
+    initializers.dblclickboxListeners(id)
 })
 
-init_nodes_dbclickboxes_and_throughputs()
+// init all loaded nodes' stuff
+initializers.allNodesDblclickboxesAndThroughputs()
