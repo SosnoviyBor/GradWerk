@@ -1,7 +1,4 @@
 # Model's Construct
-<i>Бакалаврська робота студента КПІ ім. Ігоря Сікорського Федяя Борислава.</i>
-
-[ screenshots ]
 
 ## Powered by
 Python:

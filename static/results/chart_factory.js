@@ -1,15 +1,13 @@
-
-
 export function generate_chart(element, label, param, border_color, bg_color) {
     return new Chart(element, {
             type: 'bar',
             data: {
-                labels: parse_data("name").map(row => row.name),
+                labels: parseData("name").map(row => row.name),
                 datasets: [
                     {
                         label: label,
                         labelSize: 20,
-                        data: parse_data(param).map(row => row.value),
+                        data: parseData(param).map(row => row.value),
                         borderColor: border_color,
                         borderWidth: 2,
                         backgroundColor: bg_color,
@@ -31,7 +29,8 @@ export function generate_chart(element, label, param, border_color, bg_color) {
     );
 }
 
-function parse_data(value) {
+
+function parseData(value) {
     const data = []
 
     Array.from(document.getElementsByClassName("element")).forEach(element => {
