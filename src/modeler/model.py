@@ -2,10 +2,10 @@ from typing import List
 from sys import maxsize
 from time import perf_counter
 
-from modeler.components.element import Element
-from modeler.components.create import Create
-from modeler.components.process import Process
-from modeler.components.dispose import Dispose
+from src.modeler.components.element import Element
+from src.modeler.components.create import Create
+from src.modeler.components.process import Process
+from src.modeler.components.dispose import Dispose
 
 class Model:
     def __init__(self, elements: List[Element]) -> None:

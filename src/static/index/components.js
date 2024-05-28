@@ -15,13 +15,13 @@ class CommonElements {
 
     static set_mean = `
         <p>Mean</p>
-        <input type="number" value="1" df-mean>
+        <input type="number" value="1" min="0.001" df-mean>
         <br>
     `
 
     static set_deviation = `
         <p>Deviation</p>
-        <input type="number" value="1" df-deviation>
+        <input type="number" value="1" min="0.001" df-deviation>
         <br>
     `
     
@@ -49,7 +49,7 @@ class CommonElements {
     
     static set_queue_size = `
         <p>Queue size</p>
-        <input type="number" step="1" value="1" df-queuesize>
+        <input type="number" step="1" value="1" min="1" df-queuesize>
         <br>
     `
 

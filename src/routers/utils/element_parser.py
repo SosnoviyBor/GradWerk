@@ -1,10 +1,10 @@
 from typing import List
 
-from modeler.components.element import Element
-from modeler.components.create import Create
-from modeler.components.process import Process
-from modeler.components.dispose import Dispose
-from modeler.utils.consts import DistributionType
+from src.modeler.components.element import Element
+from src.modeler.components.create import Create
+from src.modeler.components.process import Process
+from src.modeler.components.dispose import Dispose
+from src.modeler.utils.consts import DistributionType
 
 
 def create_elements(model: dict) -> List[Element]:

@@ -1,8 +1,8 @@
 from random import choice
 from sys import maxsize
 
-from modeler.utils.consts import NextElementType
-from modeler.components.element import Element
+from src.modeler.utils.consts import NextElementType
+from src.modeler.components.element import Element
 
 def out_act(e: Element) -> None:
     match(e.next_element_type):

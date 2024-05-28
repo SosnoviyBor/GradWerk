@@ -83,6 +83,8 @@ export function calculateThroughputDifference() {
             // element throughput ratio = mean(sum of all parent troughputs) / current throughput
             const throughput_ratio = utils.mean(parent_throughputs) / current_throughput
             updateOutline(current_node_element, throughput_ratio)
+        } else {
+            updateOutline(current_node_element, Number.MAX_VALUE)
         }
     }
 }

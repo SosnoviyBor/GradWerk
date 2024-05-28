@@ -37,7 +37,9 @@ export function dblclickboxListeners(id) {
 
 export function allNodesDblclickboxesAndThroughputs() {
     Array.from(Object.keys(editor.export()["drawflow"]["Home"]["data"]),
-        id => dblclickboxListeners(id)
+        id => {
+            dblclickboxListeners(id)
+            nodeData(id)
+        }
     )
-    node_throughput.calculateThroughputDifference()
 }

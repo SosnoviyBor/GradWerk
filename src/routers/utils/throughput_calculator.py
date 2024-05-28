@@ -1,6 +1,6 @@
 import numpy as np
 
-from modeler.utils.consts import DistributionType
+from src.modeler.utils.consts import DistributionType
 
 def calculate_throughput(deviation: float,
                          dist: str,

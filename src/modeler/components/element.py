@@ -1,7 +1,7 @@
 from queue import PriorityQueue
 import numpy as np
 
-from modeler.utils.consts import DistributionType, NextElementType
+from src.modeler.utils.consts import DistributionType, NextElementType
 
 
 class Element:

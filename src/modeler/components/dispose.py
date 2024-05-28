@@ -1,6 +1,6 @@
 from sys import maxsize
 
-from modeler.components.element import Element
+from src.modeler.components.element import Element
 
 class Dispose(Element):
     def __init__(self) -> None:

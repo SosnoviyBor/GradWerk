@@ -1,7 +1,7 @@
 from sys import maxsize
 
-from modeler.components.element import Element
-from modeler.utils import shortcuts
+from src.modeler.components.element import Element
+from src.modeler.utils import shortcuts
 
 
 class Process(Element):

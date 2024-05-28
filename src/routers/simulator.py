@@ -1,13 +1,11 @@
 from fastapi import APIRouter, Request
-from fastapi.templating import Jinja2Templates
 
-from routers.utils.element_parser import create_elements, parse_dist
-from routers.utils.throughput_calculator import calculate_throughput
-from modeler.model import Model
+from src.routers.utils.element_parser import create_elements, parse_dist
+from src.routers.utils.throughput_calculator import calculate_throughput
+from src.modeler.model import Model
 
 
 router = APIRouter()
-templates = Jinja2Templates(directory="templates")
 
 
 @router.post("/simulate")
