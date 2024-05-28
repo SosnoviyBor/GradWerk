@@ -1,2 +1,7 @@
-Run devserver
-uvicorn main:app --reload
+# Run devserver
+uvicorn src.main:app --reload
+
+
+# Docker
+docker build . -t modcon
+docker run -p 8000:8000 modcon
