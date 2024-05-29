@@ -7,7 +7,6 @@ services:
 
 
   nginx:
-    # build: ./nginx
     image: nginx
     ports:
       - "80:80"
