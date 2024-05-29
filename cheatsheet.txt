@@ -3,5 +3,4 @@ uvicorn src.main:app --reload
 
 
 # Docker
-docker build . -t modcon
-docker run -p 8000:8000 modcon
+docker-compose up
