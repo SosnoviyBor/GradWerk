@@ -16,9 +16,8 @@ class Element:
         
         self.id = Element.next_id
         Element.next_id += 1
-        self.name = f"element{self.id}"
+        self.name = f"Element {self.id}"
         
-        self.name = "Anonymous"
         self.tnext = PriorityQueue()
         self.delay_deviation = .0
         self.k = 0 # used only in erlang()
