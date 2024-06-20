@@ -27,7 +27,7 @@ function parseJson(ev) {
         return
     }
     editor.import(content)
-    initializers.allNodesDblclickboxesAndThroughputs()
+    initializers.all()
 }
 
 

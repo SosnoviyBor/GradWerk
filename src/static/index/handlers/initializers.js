@@ -35,11 +35,17 @@ export function dblclickboxListeners(id) {
 }
 
 
-export function allNodesDblclickboxesAndThroughputs() {
+export function all() {
     Array.from(Object.keys(editor.export()["drawflow"]["Home"]["data"]),
         id => {
             dblclickboxListeners(id)
             nodeData(id)
+            const dfname = document.getElementById(`node-${id}`)
+                                   .getElementsByClassName("box")[0]
+                                   .querySelector(".df-name")
+            if (dfname) {
+                dfname.dispatchEvent(new Event("change"))
+            }
         }
     )
 }

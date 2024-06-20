@@ -62,4 +62,4 @@ editor.on("nodeCreated", id => {
 })
 
 // init all loaded nodes' stuff
-initializers.allNodesDblclickboxesAndThroughputs()
+initializers.all()
